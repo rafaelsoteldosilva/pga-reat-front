@@ -1,29 +1,34 @@
-import "./modal.css";
 import styled from "styled-components";
 
 const ModalComponent = styled.div`
-   width: 95%;
-   display: flex;
-   flex-direction: row;
-   justify-content: start;
-   margin: 0.5em;
-   border: 1px solid black;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.6);
    display: ${({ show }) => (show ? "block" : "none")};
 `;
 
-export const Modal = ({ handleClose, show, children }) => {
-   const showHideClassName = show
-      ? "modal display-block"
-      : "modal display-none";
+const ModalMain = styled.div`
+   position: fixed;
+   background: white;
+   width: 80%;
+   height: auto;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+`;
 
+export const Modal = ({ handleClose, show, children }) => {
    return (
-      <div className={showHideClassName}>
-         <section className="modal-main">
+      <ModalComponent show={show}>
+         <ModalMain>
             {children}
             <button type="button" onClick={handleClose}>
                Close
             </button>
-         </section>
-      </div>
+         </ModalMain>
+      </ModalComponent>
    );
 };
