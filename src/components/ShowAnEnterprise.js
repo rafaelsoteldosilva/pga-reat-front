@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
 import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
+import { Modal } from "./Modal.js";
 
 const EmpresaContainer = styled.div`
    width: 95%;
@@ -29,10 +32,10 @@ const EditContainer = styled.div`
     width: 50px,
     margin: 0.5em,
     backgroundColor: green,
-    &: hover {
+    &:hover {
       filter: brightness(70%);
     }
-    &: active {
+    &:active {
       transform: translateY(4px);
     }
 `;
@@ -41,17 +44,26 @@ const DeleteContainer = styled.div`
     width: 50px,
     margin: 0.5em,
     backgroundColor: green,
-    &: hover {
+    &:hover {
       filter: brightness(70%);
     }
-    &: active {
+    &:active {
       transform: translateY(4px);
     }
 `;
 
 export default function ShowAnEnterprise({ empresa }) {
+   const [show, setShow] = useState(false);
+   function showModal() {
+      setShow(true);
+   }
+
+   function hideModal() {
+      setShow(false);
+   }
    function handleEditClick() {
       console.log("Editando empresa");
+      showModal();
    }
    function handleDeleteClick() {
       console.log("Eliminando empresa");
@@ -70,6 +82,13 @@ export default function ShowAnEnterprise({ empresa }) {
                icon={faTrash}
             />
          </DeleteContainer>
+         <Modal show={show} handleClose={hideModal}>
+            <p>Modal</p>
+            <p>otro modal</p>
+         </Modal>
+         {/* <button type="button" onClick={showModal}>
+            Open
+         </button> */}
       </EmpresaContainer>
    );
 }
