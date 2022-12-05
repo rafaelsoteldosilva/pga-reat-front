@@ -88,13 +88,21 @@ export var perfiles = {
          attributes: {
             cargo: "full stack",
             createdAt: "2022-12-02T20:10:27.129Z",
-            updatedAt: "2022-12-05T16:31:02.610Z",
+            updatedAt: "2022-12-05T19:18:50.685Z",
             nombre: "Gerente de Sistemas",
             empresa: {
                data: null,
             },
             usuario: {
-               data: null,
+               data: {
+                  id: 4,
+                  attributes: {
+                     nombre: "Esteban Pérez",
+                     rut: "26.234.456-6",
+                     createdAt: "2022-12-03T14:54:11.930Z",
+                     updatedAt: "2022-12-03T20:14:53.407Z",
+                  },
+               },
             },
          },
       },
@@ -224,7 +232,17 @@ export var usuarios = {
             createdAt: "2022-12-03T14:54:11.930Z",
             updatedAt: "2022-12-03T20:14:53.407Z",
             perfil: {
-               data: [],
+               data: [
+                  {
+                     id: 1,
+                     attributes: {
+                        cargo: "full stack",
+                        createdAt: "2022-12-02T20:10:27.129Z",
+                        updatedAt: "2022-12-05T19:18:50.685Z",
+                        nombre: "Gerente de Sistemas",
+                     },
+                  },
+               ],
             },
          },
       },

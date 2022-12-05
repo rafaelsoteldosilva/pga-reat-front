@@ -53,6 +53,30 @@ const DeleteContainer = styled.div`
     }
 `;
 
+const EmpresaContainer = styled.div`
+   width: 92%;
+   display: flex;
+   flex-direction: row;
+   justify-content: start;
+   align-items: center;
+   margin: 0.5em;
+   margin-left: 3em;
+   padding: 0.5em;
+   border: 1px solid black;
+`;
+
+const UsuarioContainer = styled.div`
+   width: 92%;
+   display: flex;
+   flex-direction: row;
+   justify-content: start;
+   align-items: center;
+   margin: 0.5em;
+   margin-left: 3em;
+   padding: 0.5em;
+   border: 1px solid black;
+`;
+
 export default function ShowAProfile({ perfil, index }) {
    const [show, setShow] = useState(false);
    function showModal() {
@@ -69,22 +93,36 @@ export default function ShowAProfile({ perfil, index }) {
       console.log(`deleting perfil ${perfil.attributes.nombre}`, index);
    }
    return (
-      //
-      <PerfilContainer>
-         <NombreContainer>{perfil.attributes.nombre}</NombreContainer>
-         <CargoContainer>{perfil.attributes.cargo}</CargoContainer>
-         <EditContainer onClick={(perfil) => handleEditClick(perfil)}>
-            <FontAwesomeIcon style={{ margin: "10px" }} icon={faPenToSquare} />
-         </EditContainer>
-         <DeleteContainer onClick={() => handleDeleteClick(perfil, index)}>
-            <FontAwesomeIcon
-               style={{ margin: "10px", marginLeft: "20px" }}
-               icon={faTrash}
-            />
-         </DeleteContainer>
-         <GlobalModal show={show} handleClose={hideModal}>
-            <EditarPerfil perfil={perfil} dialogName="Editar Perfil" />
-         </GlobalModal>
-      </PerfilContainer>
+      <React.Fragment>
+         <PerfilContainer>
+            <NombreContainer>{perfil.attributes.nombre}</NombreContainer>
+            <CargoContainer>{perfil.attributes.cargo}</CargoContainer>
+            <EditContainer onClick={(perfil) => handleEditClick(perfil)}>
+               <FontAwesomeIcon
+                  style={{ margin: "10px" }}
+                  icon={faPenToSquare}
+               />
+            </EditContainer>
+            <DeleteContainer onClick={() => handleDeleteClick(perfil, index)}>
+               <FontAwesomeIcon
+                  style={{ margin: "10px", marginLeft: "20px" }}
+                  icon={faTrash}
+               />
+            </DeleteContainer>
+            <GlobalModal show={show} handleClose={hideModal}>
+               <EditarPerfil perfil={perfil} dialogName="Editar Perfil" />
+            </GlobalModal>
+         </PerfilContainer>
+         {perfil.attributes.empresa.data !== null && (
+            <EmpresaContainer>
+               <p>{perfil.attributes.empresa.data.attributes.nombre}</p>
+            </EmpresaContainer>
+         )}
+         {perfil.attributes.usuario.data !== null && (
+            <UsuarioContainer>
+               <p>{perfil.attributes.usuario.data.attributes.nombre}</p>
+            </UsuarioContainer>
+         )}
+      </React.Fragment>
    );
 }

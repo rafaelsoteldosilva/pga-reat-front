@@ -81,12 +81,19 @@ export default function ShowAUser({ usuario, index }) {
       console.log(`deleting user ${usuario.attributes.nombre}`, index);
    }
    function searchEnterpriseInEmpresas(perfilId) {
-      let MyEmpresa = empresas.data.find((empresa) =>
-         empresa.attributes.perfil.data
+      let MyEmpresa = null;
+      MyEmpresa = empresas.data.find((empresa) => {
+         console.log(
+            "empresa.attributes.perfil.data:: ",
+            empresa.attributes.perfil.data
+         );
+         return empresa.attributes.perfil.data !== null
             ? empresa.attributes.perfil.data.id === perfilId
-            : false
-      );
-      return MyEmpresa !== null ? MyEmpresa.attributes.nombre : "";
+            : false;
+      });
+      return typeof MyEmpresa !== "undefined" && MyEmpresa !== null
+         ? MyEmpresa.attributes.nombre
+         : "";
    }
    return (
       <React.Fragment>
