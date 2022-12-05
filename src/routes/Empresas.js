@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ShowAnEnterprise from "../components/ShowAnEnterprise";
-import { empresas } from "../sampleData/sampleData";
+import { empresas, usuarios, perfiles } from "../sampleData/sampleData";
 import { Button } from "../globalData/globalStyles";
 
 import styled from "styled-components";
@@ -28,8 +28,7 @@ export default function Empresas() {
    function hideModal() {
       setShow(false);
    }
-
-   console.log(empresas.data);
+   console.log(empresas);
    return (
       //
       <EmpresasContainer>

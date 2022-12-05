@@ -8,7 +8,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarUsuario from "./EditarUsuario.js";
-import { usuarios } from "../sampleData/sampleData.js";
+import { usuarios, empresas, perfiles } from "../sampleData/sampleData.js";
 
 const UsuarioContainer = styled.div`
    width: 95%;
@@ -53,6 +53,18 @@ const DeleteContainer = styled.div`
     }
 `;
 
+const PerfilContainer = styled.div`
+   width: 92%;
+   display: flex;
+   flex-direction: row;
+   justify-content: start;
+   align-items: center;
+   margin: 0.5em;
+   margin-left: 3em;
+   padding: 0.5em;
+   border: 1px solid black;
+`;
+
 export default function ShowAUser({ usuario, index }) {
    const [show, setShow] = useState(false);
    function showModal() {
@@ -66,25 +78,46 @@ export default function ShowAUser({ usuario, index }) {
       showModal();
    }
    function handleDeleteClick(usuario, index) {
-      //   console.log(`deleting user ${usuario.nombre}`, index);
+      console.log(`deleting user ${usuario.attributes.nombre}`, index);
+   }
+   function searchEnterpriseInEmpresas(perfilId) {
+      let MyEmpresa = empresas.data.find((empresa) =>
+         empresa.attributes.perfil.data
+            ? empresa.attributes.perfil.data.id === perfilId
+            : false
+      );
+      return MyEmpresa !== null ? MyEmpresa.attributes.nombre : "";
    }
    return (
-      //
-      <UsuarioContainer>
-         <NombreContainer>{usuario.attributes.nombre}</NombreContainer>
-         <RutContainer>{usuario.attributes.rut}</RutContainer>
-         <EditContainer onClick={(usuario) => handleEditClick(usuario)}>
-            <FontAwesomeIcon style={{ margin: "10px" }} icon={faPenToSquare} />
-         </EditContainer>
-         <DeleteContainer onClick={() => handleDeleteClick(usuario, index)}>
-            <FontAwesomeIcon
-               style={{ margin: "10px", marginLeft: "20px" }}
-               icon={faTrash}
-            />
-         </DeleteContainer>
-         <GlobalModal show={show} handleClose={hideModal}>
-            <EditarUsuario usuario={usuario} dialogName="Editar Usuario" />
-         </GlobalModal>
-      </UsuarioContainer>
+      <React.Fragment>
+         <UsuarioContainer>
+            <NombreContainer>{usuario.attributes.nombre}</NombreContainer>
+            <RutContainer>{usuario.attributes.rut}</RutContainer>
+            <EditContainer onClick={(usuario) => handleEditClick(usuario)}>
+               <FontAwesomeIcon
+                  style={{ margin: "10px" }}
+                  icon={faPenToSquare}
+               />
+            </EditContainer>
+            <DeleteContainer onClick={() => handleDeleteClick(usuario, index)}>
+               <FontAwesomeIcon
+                  style={{ margin: "10px", marginLeft: "20px" }}
+                  icon={faTrash}
+               />
+            </DeleteContainer>
+            <GlobalModal show={show} handleClose={hideModal}>
+               <EditarUsuario usuario={usuario} dialogName="Editar Usuario" />
+            </GlobalModal>
+         </UsuarioContainer>
+         {usuario.attributes.perfil.data.length > 0 &&
+            usuario.attributes.perfil.data.map((perfil, index) => (
+               <PerfilContainer key={index}>
+                  <p>{perfil.attributes.nombre}</p>
+                  <p style={{ marginLeft: "10px" }}>
+                     {searchEnterpriseInEmpresas(perfil.id)}
+                  </p>
+               </PerfilContainer>
+            ))}
+      </React.Fragment>
    );
 }

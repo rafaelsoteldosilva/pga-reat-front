@@ -66,7 +66,7 @@ export default function ShowAProfile({ perfil, index }) {
       showModal();
    }
    function handleDeleteClick(perfil, index) {
-      console.log(`deleting perfil ${perfil.nombre}`, index);
+      console.log(`deleting perfil ${perfil.attributes.nombre}`, index);
    }
    return (
       //

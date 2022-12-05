@@ -9,8 +9,6 @@ const Container = styled.div`
 `;
 
 const Layout = () => {
-   console.log("in Layout");
-
    return (
       <React.Fragment>
          <Container>
