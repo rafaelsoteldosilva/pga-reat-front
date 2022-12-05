@@ -35,10 +35,8 @@ export default function Usuarios() {
          <Button style={{ margin: "10px" }} onClick={showModal}>
             Nuevo Usuario
          </Button>
-         {usuarios.map((usuario, index) => (
-            <div key={index}>
-               <ShowAUser usuario={usuario} index={index} />
-            </div>
+         {usuarios.data.map((usuario, index) => (
+            <ShowAUser key={index} usuario={usuario} index={index} />
          ))}
          <GlobalModal show={show} handleClose={hideModal}>
             <EditarUsuario empresa={null} dialogName="Nuevo Usuario" />

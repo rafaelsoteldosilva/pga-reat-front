@@ -71,8 +71,8 @@ export default function ShowAUser({ usuario, index }) {
    return (
       //
       <UsuarioContainer>
-         <NombreContainer>{usuario.nombre}</NombreContainer>
-         <RutContainer>{usuario.rut}</RutContainer>
+         <NombreContainer>{usuario.attributes.nombre}</NombreContainer>
+         <RutContainer>{usuario.attributes.rut}</RutContainer>
          <EditContainer onClick={(usuario) => handleEditClick(usuario)}>
             <FontAwesomeIcon style={{ margin: "10px" }} icon={faPenToSquare} />
          </EditContainer>

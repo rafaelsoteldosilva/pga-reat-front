@@ -7,10 +7,10 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
-import EditarEmpresa from "./EditarEmpresa.js";
-import { empresas } from "../sampleData/sampleData.js";
+import EditarPerfil from "./EditarPerfil.js";
+import { perfiles } from "../sampleData/sampleData.js";
 
-const EmpresaContainer = styled.div`
+const PerfilContainer = styled.div`
    width: 95%;
    display: flex;
    flex-direction: row;
@@ -24,8 +24,8 @@ const NombreContainer = styled.div`
    margin: 0.5em;
 `;
 
-const RutContainer = styled.div`
-   width: 150px;
+const CargoContainer = styled.div`
+   width: 300px;
    margin: 0.5em;
 `;
 
@@ -53,7 +53,7 @@ const DeleteContainer = styled.div`
     }
 `;
 
-export default function ShowAnEnterprise({ empresa, index }) {
+export default function ShowAProfile({ perfil, index }) {
    const [show, setShow] = useState(false);
    function showModal() {
       setShow(true);
@@ -65,27 +65,26 @@ export default function ShowAnEnterprise({ empresa, index }) {
    function handleEditClick() {
       showModal();
    }
-   function handleDeleteClick(empresa, index) {
-      console.log(`deleting empresa ${empresa.nombre}`, index);
+   function handleDeleteClick(perfil, index) {
+      console.log(`deleting perfil ${perfil.nombre}`, index);
    }
-   console.log(empresa);
    return (
       //
-      <EmpresaContainer>
-         <NombreContainer>{empresa.attributes.nombre}</NombreContainer>
-         <RutContainer>{empresa.attributes.rut}</RutContainer>
-         <EditContainer onClick={(empresa) => handleEditClick(empresa)}>
+      <PerfilContainer>
+         <NombreContainer>{perfil.attributes.nombre}</NombreContainer>
+         <CargoContainer>{perfil.attributes.cargo}</CargoContainer>
+         <EditContainer onClick={(perfil) => handleEditClick(perfil)}>
             <FontAwesomeIcon style={{ margin: "10px" }} icon={faPenToSquare} />
          </EditContainer>
-         <DeleteContainer onClick={() => handleDeleteClick(empresa, index)}>
+         <DeleteContainer onClick={() => handleDeleteClick(perfil, index)}>
             <FontAwesomeIcon
                style={{ margin: "10px", marginLeft: "20px" }}
                icon={faTrash}
             />
          </DeleteContainer>
          <GlobalModal show={show} handleClose={hideModal}>
-            <EditarEmpresa empresa={empresa} dialogName="Editar Empresa" />
+            <EditarPerfil perfil={perfil} dialogName="Editar Perfil" />
          </GlobalModal>
-      </EmpresaContainer>
+      </PerfilContainer>
    );
 }

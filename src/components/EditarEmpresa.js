@@ -8,12 +8,12 @@ const DialogNameContainer = styled.div`
    text-align: center;
 `;
 
-const empresaName = "empresaName";
+const empresaNombre = "empresaNombre";
 const empresaRut = "empresaRut";
 
 export default function Empresa({ empresa, dialogName }) {
    const defaultValues = {
-      empresaName: "",
+      empresaNombre: "",
       empresaRut: "",
    };
    const [formValues, setFormValues] = useState(defaultValues);
@@ -21,12 +21,12 @@ export default function Empresa({ empresa, dialogName }) {
    useEffect(() => {
       if (empresa !== null) {
          setFormValues({
-            empresaName: empresa.nombre,
-            empresaRut: empresa.rut,
+            empresaNombre: empresa.attributes.nombre,
+            empresaRut: empresa.attributes.rut,
          });
       } else {
          setFormValues({
-            empresaName: "",
+            empresaNombre: "",
             empresaRut: "",
          });
       }
@@ -45,7 +45,7 @@ export default function Empresa({ empresa, dialogName }) {
       const rutRE = /^(\d{1,3}(?:\.\d{1,3}){2}-[\dkK])$/;
       let errors = "";
 
-      if (formValues[empresaName].length === 0) {
+      if (formValues[empresaNombre].length === 0) {
          errors += "Nombre de empresa debe tener un valor";
       }
       if (!new RegExp(rutRE).test(formValues[empresaRut])) {
@@ -76,8 +76,8 @@ export default function Empresa({ empresa, dialogName }) {
                Empresa:
                <input
                   type="text"
-                  name={empresaName}
-                  value={formValues.empresaName}
+                  name={empresaNombre}
+                  value={formValues.empresaNombre}
                   onChange={handleChange}
                   style={{ margin: "0 0 0 10px" }}
                />

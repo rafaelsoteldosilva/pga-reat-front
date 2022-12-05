@@ -8,26 +8,26 @@ const DialogNameContainer = styled.div`
    text-align: center;
 `;
 
-const usuarioName = "usuarioName";
-const usuarioRut = "usuarioRut";
+const perfilNombre = "perfilNombre";
+const perfilCargo = "perfilCargo";
 
-export default function Usuario({ usuario, dialogName }) {
+export default function Perfil({ perfil, dialogName }) {
    const defaultValues = {
-      usuarioName: "",
-      usuarioRut: "",
+      perfilNombre: "",
+      perfilCargo: "",
    };
    const [formValues, setFormValues] = useState(defaultValues);
 
    useEffect(() => {
-      if (usuario !== null) {
+      if (perfil !== null) {
          setFormValues({
-            usuarioName: usuario.attributes.nombre,
-            usuarioRut: usuario.attributes.rut,
+            perfilNombre: perfil.attributes.nombre,
+            perfilCargo: perfil.attributes.cargo,
          });
       } else {
          setFormValues({
-            usuarioName: "",
-            usuarioRut: "",
+            perfilNombre: "",
+            perfilCargo: "",
          });
       }
    }, []);
@@ -42,15 +42,14 @@ export default function Usuario({ usuario, dialogName }) {
    }
 
    function validateBothFields() {
-      const rutRE = /^(\d{1,3}(?:\.\d{1,3}){2}-[\dkK])$/;
       let errors = "";
 
-      if (formValues[usuarioName].length === 0) {
-         errors += "Nombre de usuario debe tener un valor";
+      if (formValues[perfilNombre].length === 0) {
+         errors += "Nombre de perfil debe tener un valor";
       }
-      if (!new RegExp(rutRE).test(formValues[usuarioRut])) {
+      if (formValues[perfilCargo].length === 0) {
          if (errors.length > 0) errors += " y ";
-         errors += " Rut de usaurio no válido";
+         errors += "Cargo del perfil debe tener un valor";
       }
       if (errors.length > 0) alert(errors);
       return errors.length === 0;
@@ -73,22 +72,22 @@ export default function Usuario({ usuario, dialogName }) {
             style={{ display: "flex", flexDirection: "column" }}
          >
             <label>
-               Usuario:
+               Nombre:
                <input
                   type="text"
-                  name={usuarioName}
-                  value={formValues.usuarioName}
+                  name={perfilNombre}
+                  value={formValues.perfilNombre}
                   onChange={handleChange}
                   style={{ margin: "0 0 0 10px" }}
                />
             </label>
             <label style={{ marginTop: "10px" }}>
-               Rut:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               Cargo:&nbsp;&nbsp;&nbsp;
                <input
-                  //   format="##.###.###-#"
+                  // format="##.###.###-#"
                   type="text"
-                  name={usuarioRut}
-                  value={formValues.usuarioRut}
+                  name={perfilCargo}
+                  value={formValues.perfilCargo}
                   onChange={handleChange}
                   style={{ margin: "0 0 0 10px" }}
                />

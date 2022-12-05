@@ -28,16 +28,16 @@ export default function Empresas() {
    function hideModal() {
       setShow(false);
    }
+
+   console.log(empresas.data);
    return (
       //
       <EmpresasContainer>
          <Button style={{ margin: "10px" }} onClick={showModal}>
             Nueva Empresa
          </Button>
-         {empresas.map((empresa, index) => (
-            <div key={index}>
-               <ShowAnEnterprise empresa={empresa} index={index} />
-            </div>
+         {empresas.data.map((empresa, index) => (
+            <ShowAnEnterprise key={index} empresa={empresa} index={index} />
          ))}
          <GlobalModal show={show} handleClose={hideModal}>
             <EditarEmpresa empresa={null} dialogName="Nueva Empresa" />
