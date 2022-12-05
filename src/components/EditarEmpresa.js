@@ -1,17 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const defaultValues = {
-   empresaName: "",
-   empresaRut: "",
-};
+import styled from "styled-components";
+import Input from "react-input-auto-format";
+
+const DialogNameContainer = styled.div`
+   width: 100%;
+   text-align: center;
+`;
 
 const empresaName = "empresaName";
 const empresaRut = "empresaRut";
 
-export default function Empresa() {
+export default function Empresa({ empresa, dialogName }) {
+   const defaultValues = {
+      empresaName: "",
+      empresaRut: "",
+   };
    const [formValues, setFormValues] = useState(defaultValues);
 
-   const [disabled, setDisabled] = useState(true);
+   useEffect(() => {
+      if (empresa !== null) {
+         setFormValues({
+            empresaName: empresa.nombre,
+            empresaRut: empresa.rut,
+         });
+      } else {
+         setFormValues({
+            empresaName: "",
+            empresaRut: "",
+         });
+      }
+   }, []);
 
    function handleChange(e) {
       let { name, value } = e.target;
@@ -46,7 +65,13 @@ export default function Empresa() {
 
    return (
       <div>
-         <form onSubmit={handleSubmit}>
+         <DialogNameContainer>
+            <h2>{dialogName}</h2>
+         </DialogNameContainer>
+         <form
+            onSubmit={handleSubmit}
+            style={{ display: "flex", flexDirection: "column" }}
+         >
             <label>
                Empresa:
                <input
@@ -54,18 +79,25 @@ export default function Empresa() {
                   name={empresaName}
                   value={formValues.empresaName}
                   onChange={handleChange}
+                  style={{ margin: "0 0 0 10px" }}
                />
             </label>
-            <label>
-               Rut:
+            <label style={{ marginTop: "10px" }}>
+               Rut:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                <input
+                  // format="##.###.###-#"
                   type="text"
                   name={empresaRut}
                   value={formValues.empresaRut}
                   onChange={handleChange}
+                  style={{ margin: "0 0 0 10px" }}
                />
             </label>
-            <input type="submit" value="Submit" />
+            <input
+               style={{ width: "100px", margin: "3px", marginTop: "5px" }}
+               type="submit"
+               value="Submit"
+            />
          </form>
       </div>
    );

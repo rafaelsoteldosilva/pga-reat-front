@@ -7,10 +7,10 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
-import EditarEmpresa from "./EditarEmpresa.js";
-import { empresas } from "../sampleData/sampleData.js";
+import EditarUsuario from "./EditarUsuario.js";
+import { usuarios } from "../sampleData/sampleData.js";
 
-const EmpresaContainer = styled.div`
+const UsuarioContainer = styled.div`
    width: 95%;
    display: flex;
    flex-direction: row;
@@ -53,7 +53,7 @@ const DeleteContainer = styled.div`
     }
 `;
 
-export default function ShowAnEnterprise({ empresa, index }) {
+export default function ShowAUser({ usuario, index }) {
    const [show, setShow] = useState(false);
    function showModal() {
       setShow(true);
@@ -65,26 +65,26 @@ export default function ShowAnEnterprise({ empresa, index }) {
    function handleEditClick() {
       showModal();
    }
-   function handleDeleteClick(empresa, index) {
-      console.log(`deleting empresa ${empresa.nombre}`, index);
+   function handleDeleteClick(usuario, index) {
+      //   console.log(`deleting user ${usuario.nombre}`, index);
    }
    return (
       //
-      <EmpresaContainer>
-         <NombreContainer>{empresa.nombre}</NombreContainer>
-         <RutContainer>{empresa.rut}</RutContainer>
-         <EditContainer onClick={(empresa) => handleEditClick(empresa)}>
+      <UsuarioContainer>
+         <NombreContainer>{usuario.nombre}</NombreContainer>
+         <RutContainer>{usuario.rut}</RutContainer>
+         <EditContainer onClick={(usuario) => handleEditClick(usuario)}>
             <FontAwesomeIcon style={{ margin: "10px" }} icon={faPenToSquare} />
          </EditContainer>
-         <DeleteContainer onClick={() => handleDeleteClick(empresa, index)}>
+         <DeleteContainer onClick={() => handleDeleteClick(usuario, index)}>
             <FontAwesomeIcon
                style={{ margin: "10px", marginLeft: "20px" }}
                icon={faTrash}
             />
          </DeleteContainer>
          <GlobalModal show={show} handleClose={hideModal}>
-            <EditarEmpresa empresa={empresa} dialogName="Editar Empresa" />
+            <EditarUsuario usuario={usuario} dialogName="Editar Usuario" />
          </GlobalModal>
-      </EmpresaContainer>
+      </UsuarioContainer>
    );
 }

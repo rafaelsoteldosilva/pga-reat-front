@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Button } from "./globalStyles.js";
+
 const ModalComponent = styled.div`
    position: fixed;
    top: 0;
@@ -12,6 +14,8 @@ const ModalComponent = styled.div`
 
 const ModalMain = styled.div`
    position: fixed;
+   padding: 1em;
+   border: 1px solid black;
    background: white;
    width: 80%;
    height: auto;
@@ -20,14 +24,14 @@ const ModalMain = styled.div`
    transform: translate(-50%, -50%);
 `;
 
-export const Modal = ({ handleClose, show, children }) => {
+export const GlobalModal = ({ handleClose, show, children }) => {
    return (
       <ModalComponent show={show}>
          <ModalMain>
             {children}
-            <button type="button" onClick={handleClose}>
+            <Button style={{ marginTop: "10px" }} onClick={handleClose}>
                Close
-            </button>
+            </Button>
          </ModalMain>
       </ModalComponent>
    );
