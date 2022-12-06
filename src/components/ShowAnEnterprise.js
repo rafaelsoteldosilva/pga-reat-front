@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import styled from "styled-components";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+   faPenToSquare,
+   faTrash,
+   faPlus,
+   faMinus,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarEmpresa from "./EditarEmpresa.js";
@@ -25,8 +31,20 @@ const NombreContainer = styled.div`
 `;
 
 const RutContainer = styled.div`
-   width: 150px;
+   width: 300px;
    margin: 0.5em;
+`;
+
+const AddContainer = styled.div`
+    width: 50px,
+    margin: 0.5em,
+    backgroundColor: green,
+    &:hover {
+      filter: brightness(70%);
+    }
+    &:active {
+      transform: translateY(4px);
+    }
 `;
 
 const EditContainer = styled.div`
@@ -66,6 +84,9 @@ const PerfilContainer = styled.div`
 `;
 
 export default function ShowAnEnterprise({ empresa, index }) {
+   const addRef = useRef();
+   const delRef = useRef();
+   const editRef = useRef();
    const [show, setShow] = useState(false);
    function showModal() {
       setShow(true);
@@ -76,6 +97,9 @@ export default function ShowAnEnterprise({ empresa, index }) {
    }
    function handleEditClick() {
       showModal();
+   }
+   function handleAddClick(empresa) {
+      console.log("add to empresa:: ", empresa);
    }
    function handleDeleteClick(empresa, index) {
       console.log(`deleting empresa ${empresa.attributes.nombre}`, index);
@@ -97,43 +121,47 @@ export default function ShowAnEnterprise({ empresa, index }) {
          <EmpresaContainer>
             <NombreContainer>{empresa.attributes.nombre}</NombreContainer>
             <RutContainer>{empresa.attributes.rut}</RutContainer>
-            <EditContainer onClick={(empresa) => handleEditClick(empresa)}>
+            <EditContainer onClick={() => handleEditClick(empresa)}>
                <FontAwesomeIcon
+                  ref={editRef}
                   style={{ margin: "10px" }}
                   icon={faPenToSquare}
                />
             </EditContainer>
+            <Tippy content="Editar una empresa" reference={editRef} />
             <DeleteContainer onClick={() => handleDeleteClick(empresa, index)}>
                <FontAwesomeIcon
+                  ref={delRef}
                   style={{ margin: "10px", marginLeft: "20px" }}
                   icon={faTrash}
                />
             </DeleteContainer>
+            <Tippy content="Eliminar una empresa" reference={delRef} />
             <GlobalModal show={show} handleClose={hideModal}>
-               <EditarEmpresa empresa={empresa} dialogName="Editar Empresa" />
+               <EditarEmpresa
+                  empresa={empresa}
+                  dialogName="Editar Empresa"
+                  show={show}
+               />
             </GlobalModal>
          </EmpresaContainer>
          {empresa.attributes.perfil.data && (
             <React.Fragment>
-               {empresa.attributes.perfil.data && (
-                  <PerfilContainer>
+               <PerfilContainer>
+                  <p>Perfil: </p>
+                  <p style={{ marginLeft: "10px" }}>
+                     {empresa.attributes.perfil.data.attributes.nombre}
+                  </p>
+                  {searchUserInUsuarios(empresa.attributes.perfil.data.id) && (
                      <p style={{ marginLeft: "10px" }}>
-                        &nbsp;&nbsp;
-                        {empresa.attributes.perfil.data.attributes.nombre}
+                        {
+                           searchUserInUsuarios(
+                              empresa.attributes.perfil.data.id
+                           ).attributes.nombre
+                        }
                      </p>
-                     {searchUserInUsuarios(
-                        empresa.attributes.perfil.data.id
-                     ) && (
-                        <p style={{ marginLeft: "10px" }}>
-                           {
-                              searchUserInUsuarios(
-                                 empresa.attributes.perfil.data.id
-                              ).attributes.nombre
-                           }
-                        </p>
-                     )}
-                  </PerfilContainer>
-               )}
+                  )}
+               </PerfilContainer>
             </React.Fragment>
          )}
       </React.Fragment>

@@ -26,7 +26,15 @@ export var empresas = {
             createdAt: "2022-12-02T20:09:15.042Z",
             updatedAt: "2022-12-03T15:10:47.340Z",
             perfil: {
-               data: null,
+               data: {
+                  id: 1,
+                  attributes: {
+                     cargo: "full stack Culvers",
+                     createdAt: "2022-12-02T20:10:27.129Z",
+                     updatedAt: "2022-12-06T17:42:15.485Z",
+                     nombre: "Gerente de Sistemas Culvers",
+                  },
+               },
             },
          },
       },
@@ -41,10 +49,10 @@ export var empresas = {
                data: {
                   id: 2,
                   attributes: {
-                     cargo: "full stack engineer",
+                     cargo: "full stack Epica",
                      createdAt: "2022-12-02T20:16:15.389Z",
-                     updatedAt: "2022-12-05T14:37:06.987Z",
-                     nombre: "Gerente de Sistemas",
+                     updatedAt: "2022-12-06T17:42:42.995Z",
+                     nombre: "Gerente de Sistemas Epica",
                   },
                },
             },
@@ -61,10 +69,10 @@ export var empresas = {
                data: {
                   id: 8,
                   attributes: {
-                     cargo: "full stack",
+                     cargo: "full stack Toesta",
                      createdAt: "2022-12-03T15:03:00.041Z",
-                     updatedAt: "2022-12-05T14:36:51.725Z",
-                     nombre: "Gerente de Sistemas",
+                     updatedAt: "2022-12-06T17:42:25.548Z",
+                     nombre: "Gerente de Sistemas Toesta",
                   },
                },
             },
@@ -86,21 +94,29 @@ export var perfiles = {
       {
          id: 1,
          attributes: {
-            cargo: "full stack",
+            cargo: "full stack Culvers",
             createdAt: "2022-12-02T20:10:27.129Z",
-            updatedAt: "2022-12-05T19:18:50.685Z",
-            nombre: "Gerente de Sistemas",
+            updatedAt: "2022-12-06T17:42:15.485Z",
+            nombre: "Gerente de Sistemas Culvers",
             empresa: {
-               data: null,
+               data: {
+                  id: 1,
+                  attributes: {
+                     nombre: "Culvers",
+                     rut: "76.234.123-k",
+                     createdAt: "2022-12-02T20:09:15.042Z",
+                     updatedAt: "2022-12-03T15:10:47.340Z",
+                  },
+               },
             },
             usuario: {
                data: {
-                  id: 4,
+                  id: 6,
                   attributes: {
                      nombre: "Esteban Pérez",
                      rut: "26.234.456-6",
-                     createdAt: "2022-12-03T14:54:11.930Z",
-                     updatedAt: "2022-12-03T20:14:53.407Z",
+                     createdAt: "2022-12-06T03:13:02.268Z",
+                     updatedAt: "2022-12-06T03:13:02.268Z",
                   },
                },
             },
@@ -109,10 +125,10 @@ export var perfiles = {
       {
          id: 2,
          attributes: {
-            cargo: "full stack engineer",
+            cargo: "full stack Epica",
             createdAt: "2022-12-02T20:16:15.389Z",
-            updatedAt: "2022-12-05T14:37:06.987Z",
-            nombre: "Gerente de Sistemas",
+            updatedAt: "2022-12-06T17:42:42.995Z",
+            nombre: "Gerente de Sistemas Epica",
             empresa: {
                data: {
                   id: 2,
@@ -126,12 +142,12 @@ export var perfiles = {
             },
             usuario: {
                data: {
-                  id: 1,
+                  id: 6,
                   attributes: {
-                     nombre: "Rafael Soteldo",
-                     rut: "26.144.985-4",
-                     createdAt: "2022-12-02T20:09:39.193Z",
-                     updatedAt: "2022-12-05T16:31:39.775Z",
+                     nombre: "Esteban Pérez",
+                     rut: "26.234.456-6",
+                     createdAt: "2022-12-06T03:13:02.268Z",
+                     updatedAt: "2022-12-06T03:13:02.268Z",
                   },
                },
             },
@@ -140,10 +156,10 @@ export var perfiles = {
       {
          id: 8,
          attributes: {
-            cargo: "full stack",
+            cargo: "full stack Toesta",
             createdAt: "2022-12-03T15:03:00.041Z",
-            updatedAt: "2022-12-05T14:36:51.725Z",
-            nombre: "Gerente de Sistemas",
+            updatedAt: "2022-12-06T17:42:25.548Z",
+            nombre: "Gerente de Sistemas Toesta",
             empresa: {
                data: {
                   id: 4,
@@ -157,12 +173,12 @@ export var perfiles = {
             },
             usuario: {
                data: {
-                  id: 1,
+                  id: 6,
                   attributes: {
-                     nombre: "Rafael Soteldo",
-                     rut: "26.144.985-4",
-                     createdAt: "2022-12-02T20:09:39.193Z",
-                     updatedAt: "2022-12-05T16:31:39.775Z",
+                     nombre: "Esteban Pérez",
+                     rut: "26.234.456-6",
+                     createdAt: "2022-12-06T03:13:02.268Z",
+                     updatedAt: "2022-12-06T03:13:02.268Z",
                   },
                },
             },
@@ -187,28 +203,9 @@ export var usuarios = {
             nombre: "Rafael Soteldo",
             rut: "26.144.985-4",
             createdAt: "2022-12-02T20:09:39.193Z",
-            updatedAt: "2022-12-05T16:31:39.775Z",
+            updatedAt: "2022-12-06T03:03:00.836Z",
             perfil: {
-               data: [
-                  {
-                     id: 8,
-                     attributes: {
-                        cargo: "full stack",
-                        createdAt: "2022-12-03T15:03:00.041Z",
-                        updatedAt: "2022-12-05T14:36:51.725Z",
-                        nombre: "Gerente de Sistemas",
-                     },
-                  },
-                  {
-                     id: 2,
-                     attributes: {
-                        cargo: "full stack engineer",
-                        createdAt: "2022-12-02T20:16:15.389Z",
-                        updatedAt: "2022-12-05T14:37:06.987Z",
-                        nombre: "Gerente de Sistemas",
-                     },
-                  },
-               ],
+               data: [],
             },
          },
       },
@@ -232,14 +229,44 @@ export var usuarios = {
             createdAt: "2022-12-03T14:54:11.930Z",
             updatedAt: "2022-12-03T20:14:53.407Z",
             perfil: {
+               data: [],
+            },
+         },
+      },
+      {
+         id: 6,
+         attributes: {
+            nombre: "Esteban Pérez",
+            rut: "26.234.456-6",
+            createdAt: "2022-12-06T03:13:02.268Z",
+            updatedAt: "2022-12-06T03:13:02.268Z",
+            perfil: {
                data: [
                   {
                      id: 1,
                      attributes: {
-                        cargo: "full stack",
+                        cargo: "full stack Culvers",
                         createdAt: "2022-12-02T20:10:27.129Z",
-                        updatedAt: "2022-12-05T19:18:50.685Z",
-                        nombre: "Gerente de Sistemas",
+                        updatedAt: "2022-12-06T17:42:15.485Z",
+                        nombre: "Gerente de Sistemas Culvers",
+                     },
+                  },
+                  {
+                     id: 2,
+                     attributes: {
+                        cargo: "full stack Epica",
+                        createdAt: "2022-12-02T20:16:15.389Z",
+                        updatedAt: "2022-12-06T17:42:42.995Z",
+                        nombre: "Gerente de Sistemas Epica",
+                     },
+                  },
+                  {
+                     id: 8,
+                     attributes: {
+                        cargo: "full stack Toesta",
+                        createdAt: "2022-12-03T15:03:00.041Z",
+                        updatedAt: "2022-12-06T17:42:25.548Z",
+                        nombre: "Gerente de Sistemas Toesta",
                      },
                   },
                ],
@@ -252,7 +279,7 @@ export var usuarios = {
          page: 1,
          pageSize: 25,
          pageCount: 1,
-         total: 3,
+         total: 4,
       },
    },
 };

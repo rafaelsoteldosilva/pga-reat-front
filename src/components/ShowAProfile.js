@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+   faPenToSquare,
+   faTrash,
+   faSquarePlus,
+   faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarPerfil from "./EditarPerfil.js";
@@ -89,8 +93,14 @@ export default function ShowAProfile({ perfil, index }) {
    function handleEditClick() {
       showModal();
    }
-   function handleDeleteClick(perfil, index) {
-      console.log(`deleting perfil ${perfil.attributes.nombre}`, index);
+   function handleDeleteProfileClick(perfil) {
+      console.log(`deleting perfil ${perfil.attributes.nombre}`);
+   }
+   function handleDeleteUsuarioClick(perfil, usuario) {
+      console.log(usuario);
+   }
+   function handleDeleteEmpresaClick(perfil, empresa) {
+      console.log(empresa);
    }
    return (
       <React.Fragment>
@@ -103,24 +113,32 @@ export default function ShowAProfile({ perfil, index }) {
                   icon={faPenToSquare}
                />
             </EditContainer>
-            <DeleteContainer onClick={() => handleDeleteClick(perfil, index)}>
+            <DeleteContainer onClick={() => handleDeleteProfileClick(perfil)}>
                <FontAwesomeIcon
                   style={{ margin: "10px", marginLeft: "20px" }}
                   icon={faTrash}
                />
             </DeleteContainer>
             <GlobalModal show={show} handleClose={hideModal}>
-               <EditarPerfil perfil={perfil} dialogName="Editar Perfil" />
+               <EditarPerfil
+                  perfil={perfil}
+                  dialogName="Editar Perfil"
+                  show={show}
+               />
             </GlobalModal>
          </PerfilContainer>
          {perfil.attributes.empresa.data !== null && (
             <EmpresaContainer>
-               <p>{perfil.attributes.empresa.data.attributes.nombre}</p>
+               <p>
+                  Empresa: {perfil.attributes.empresa.data.attributes.nombre}
+               </p>
             </EmpresaContainer>
          )}
          {perfil.attributes.usuario.data !== null && (
             <UsuarioContainer>
-               <p>{perfil.attributes.usuario.data.attributes.nombre}</p>
+               <p>
+                  Usuario: {perfil.attributes.usuario.data.attributes.nombre}
+               </p>
             </UsuarioContainer>
          )}
       </React.Fragment>

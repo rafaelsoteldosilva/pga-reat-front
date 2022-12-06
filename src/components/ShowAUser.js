@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+   faPenToSquare,
+   faTrash,
+   faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarUsuario from "./EditarUsuario.js";
@@ -25,8 +28,20 @@ const NombreContainer = styled.div`
 `;
 
 const RutContainer = styled.div`
-   width: 150px;
+   width: 300px;
    margin: 0.5em;
+`;
+
+const AddContainer = styled.div`
+    width: 50px,
+    margin: 0.5em,
+    backgroundColor: green,
+    &:hover {
+      filter: brightness(70%);
+    }
+    &:active {
+      transform: translateY(4px);
+    }
 `;
 
 const EditContainer = styled.div`
@@ -66,6 +81,8 @@ const PerfilContainer = styled.div`
 `;
 
 export default function ShowAUser({ usuario, index }) {
+   const addRef = useRef();
+
    const [show, setShow] = useState(false);
    function showModal() {
       setShow(true);
@@ -77,8 +94,14 @@ export default function ShowAUser({ usuario, index }) {
    function handleEditClick() {
       showModal();
    }
-   function handleDeleteClick(usuario, index) {
+   function handleDeleteUsuarioClick(usuario, index) {
       console.log(`deleting user ${usuario.attributes.nombre}`, index);
+   }
+   function handleAddClick(perfil) {
+      console.log(`adding perfil ${perfil.attributes.nombre}`);
+   }
+   function handleDeletePerfilClick(perfil, index) {
+      console.log(perfil.data[index]);
    }
    function searchEnterpriseInEmpresas(perfilId) {
       let MyEmpresa = null;
@@ -106,7 +129,9 @@ export default function ShowAUser({ usuario, index }) {
                   icon={faPenToSquare}
                />
             </EditContainer>
-            <DeleteContainer onClick={() => handleDeleteClick(usuario, index)}>
+            <DeleteContainer
+               onClick={() => handleDeleteUsuarioClick(usuario, index)}
+            >
                <FontAwesomeIcon
                   style={{ margin: "10px", marginLeft: "20px" }}
                   icon={faTrash}

@@ -28,7 +28,6 @@ export default function Empresas() {
    function hideModal() {
       setShow(false);
    }
-   console.log(empresas);
    return (
       //
       <EmpresasContainer>

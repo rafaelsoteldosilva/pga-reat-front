@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 
 import styled from "styled-components";
-import Input from "react-input-auto-format";
+import Select from "react-select";
+
+import { empresas, usuarios, perfiles } from "../sampleData/sampleData";
+
+const DialogContainer = styled.div`
+   width: 100%;
+   height: 50%;
+`;
 
 const DialogNameContainer = styled.div`
    width: 100%;
@@ -11,12 +18,14 @@ const DialogNameContainer = styled.div`
 const empresaNombre = "empresaNombre";
 const empresaRut = "empresaRut";
 
-export default function Empresa({ empresa, dialogName }) {
+export default function EditarEmpresa({ empresa, dialogName, show }) {
    const defaultValues = {
       empresaNombre: "",
       empresaRut: "",
    };
    const [formValues, setFormValues] = useState(defaultValues);
+   const [profileOptions, setProfileOptions] = useState([]);
+   const [profileSelectedOption, setProfileSelectedOption] = useState(null);
 
    useEffect(() => {
       if (empresa !== null) {
@@ -31,6 +40,61 @@ export default function Empresa({ empresa, dialogName }) {
          });
       }
    }, []);
+
+   useEffect(() => {
+      if (show) {
+         setProfileOptions([]);
+         setProfileSelectedOption(null);
+         setProfileInitialOption(empresa);
+      }
+   }, [show]);
+
+   function isNotEmpty(data) {
+      if (typeof data === "undefined") return false;
+      if (data == null) return false;
+      if (data) return true;
+   }
+
+   function setProfileInitialOption(empresa) {
+      let valueObject = {};
+      if (isNotEmpty(empresa)) {
+         if (isNotEmpty(empresa.attributes.perfil.data)) {
+            valueObject["nombre"] =
+               empresa.attributes.perfil.data.attributes.nombre;
+            valueObject["id"] = empresa.attributes.perfil.data.id;
+            let newObject = {
+               value: valueObject,
+               label: valueObject.nombre,
+            };
+            setProfileOptions((current) => [...current, newObject]);
+
+            setProfileSelectedOption(newObject);
+         }
+      }
+      perfiles.data.map((perfil, index) => {
+         let objectIsIncluded = false;
+         if (Object.keys(valueObject) !== 0) {
+            if (perfil.id === valueObject.id) {
+               objectIsIncluded = true;
+            }
+         }
+         if (!objectIsIncluded) {
+            let newValueObject = {};
+            newValueObject["nombre"] = perfil.attributes.nombre;
+            newValueObject["id"] = perfil.id;
+            let newObject = {
+               value: newValueObject,
+               label: newValueObject.nombre,
+            };
+
+            setProfileOptions((current) => [...current, newObject]);
+         }
+      });
+   }
+
+   function handleSelectChange(selectedOption) {
+      setProfileSelectedOption(selectedOption);
+   }
 
    function handleChange(e) {
       let { name, value } = e.target;
@@ -63,8 +127,14 @@ export default function Empresa({ empresa, dialogName }) {
       }
    }
 
+   const ShowOptions = () => {
+      console.log("profileSelectedOption: ", profileSelectedOption);
+      console.log("profileOptions: ", profileOptions);
+      return <div></div>;
+   };
+
    return (
-      <div>
+      <DialogContainer>
          <DialogNameContainer>
             <h2>{dialogName}</h2>
          </DialogNameContainer>
@@ -98,7 +168,14 @@ export default function Empresa({ empresa, dialogName }) {
                type="submit"
                value="Submit"
             />
+            <ShowOptions />
+            <Select
+               defaultValue={profileSelectedOption}
+               value={profileSelectedOption}
+               onChange={handleSelectChange}
+               options={profileOptions}
+            />
          </form>
-      </div>
+      </DialogContainer>
    );
 }
