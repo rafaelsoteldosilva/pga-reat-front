@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
 import styled from "styled-components";
-import Input from "react-input-auto-format";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getPerfiles } from "../slices/perfilesSlice";
 
 const DialogNameContainer = styled.div`
    width: 100%;
@@ -12,6 +14,8 @@ const usuarioName = "usuarioName";
 const usuarioRut = "usuarioRut";
 
 export default function Usuario({ usuario, dialogName }) {
+   const dispatch = useDispatch();
+   const perfiles = useSelector(getPerfiles);
    const defaultValues = {
       usuarioName: "",
       usuarioRut: "",

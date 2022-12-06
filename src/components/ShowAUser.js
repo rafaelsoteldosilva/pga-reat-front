@@ -11,7 +11,8 @@ import {
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarUsuario from "./EditarUsuario.js";
-import { usuarios, empresas, perfiles } from "../sampleData/sampleData.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getEmpresas } from "../slices/empresasSlice";
 
 const UsuarioContainer = styled.div`
    width: 95%;
@@ -81,6 +82,8 @@ const PerfilContainer = styled.div`
 `;
 
 export default function ShowAUser({ usuario, index }) {
+   const dispatch = useDispatch();
+   const empresas = useSelector(getEmpresas);
    const addRef = useRef();
 
    const [show, setShow] = useState(false);

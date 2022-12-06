@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ShowAUser from "../components/ShowAUser";
-import { usuarios } from "../sampleData/sampleData";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsuarios, getUsuariosStatus } from "../slices/usuariosSlice";
 import { Button } from "../globalData/globalStyles";
 
 import styled from "styled-components";
@@ -16,6 +17,9 @@ const UsuariosContainer = styled.div`
 `;
 
 export default function Usuarios() {
+   const dispatch = useDispatch();
+   const usuarios = useSelector(getUsuarios);
+   const usuariosStatus = useSelector(getUsuariosStatus);
    const [show, setShow] = useState(false);
 
    function handleClickNueva() {
@@ -28,19 +32,20 @@ export default function Usuarios() {
    function hideModal() {
       setShow(false);
    }
-
-   return (
-      //
-      <UsuariosContainer>
-         <Button style={{ margin: "10px" }} onClick={showModal}>
-            Nuevo Usuario
-         </Button>
-         {usuarios.data.map((usuario, index) => (
-            <ShowAUser key={index} usuario={usuario} index={index} />
-         ))}
-         <GlobalModal show={show} handleClose={hideModal}>
-            <EditarUsuario empresa={null} dialogName="Nuevo Usuario" />
-         </GlobalModal>
-      </UsuariosContainer>
-   );
+   if (usuariosStatus !== "succeeded") return <div>loading data...</div>;
+   else
+      return (
+         //
+         <UsuariosContainer>
+            <Button style={{ margin: "10px" }} onClick={showModal}>
+               Nuevo Usuario
+            </Button>
+            {usuarios.data.map((usuario, index) => (
+               <ShowAUser key={index} usuario={usuario} index={index} />
+            ))}
+            <GlobalModal show={show} handleClose={hideModal}>
+               <EditarUsuario empresa={null} dialogName="Nuevo Usuario" />
+            </GlobalModal>
+         </UsuariosContainer>
+      );
 }

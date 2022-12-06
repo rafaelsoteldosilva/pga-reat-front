@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ShowAProfile from "../components/ShowAProfile";
-import { perfiles } from "../sampleData/sampleData";
+import { useDispatch, useSelector } from "react-redux";
+import { getPerfiles, getPerfilesStatus } from "../slices/perfilesSlice";
 import { Button } from "../globalData/globalStyles";
 
 import styled from "styled-components";
@@ -16,6 +17,9 @@ const ProfileContainer = styled.div`
 `;
 
 export default function Profiles() {
+   const dispatch = useDispatch();
+   const perfiles = useSelector(getPerfiles);
+   const perfilesStatus = useSelector(getPerfilesStatus);
    const [show, setShow] = useState(false);
 
    function handleClickNueva() {
@@ -28,18 +32,20 @@ export default function Profiles() {
    function hideModal() {
       setShow(false);
    }
-   return (
-      //
-      <ProfileContainer>
-         <Button style={{ margin: "10px" }} onClick={showModal}>
-            Nuevo Perfil
-         </Button>
-         {perfiles.data.map((perfil, index) => (
-            <ShowAProfile key={index} perfil={perfil} index={index} />
-         ))}
-         <GlobalModal show={show} handleClose={hideModal}>
-            <EditarPerfil perfil={null} dialogName="Nuevo Perfil" />
-         </GlobalModal>
-      </ProfileContainer>
-   );
+   if (perfilesStatus !== "succeeded") return <div>loading data...</div>;
+   else
+      return (
+         //
+         <ProfileContainer>
+            <Button style={{ margin: "10px" }} onClick={showModal}>
+               Nuevo Perfil
+            </Button>
+            {perfiles.data.map((perfil, index) => (
+               <ShowAProfile key={index} perfil={perfil} index={index} />
+            ))}
+            <GlobalModal show={show} handleClose={hideModal}>
+               <EditarPerfil perfil={null} dialogName="Nuevo Perfil" />
+            </GlobalModal>
+         </ProfileContainer>
+      );
 }

@@ -14,7 +14,8 @@ import {
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarEmpresa from "./EditarEmpresa.js";
-import { empresas, perfiles, usuarios } from "../sampleData/sampleData.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsuarios } from "../slices/usuariosSlice";
 
 const EmpresaContainer = styled.div`
    width: 95%;
@@ -84,6 +85,8 @@ const PerfilContainer = styled.div`
 `;
 
 export default function ShowAnEnterprise({ empresa, index }) {
+   const dispatch = useDispatch();
+   const usuarios = useSelector(getUsuarios);
    const addRef = useRef();
    const delRef = useRef();
    const editRef = useRef();

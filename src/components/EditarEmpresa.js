@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Select from "react-select";
 
-import { empresas, usuarios, perfiles } from "../sampleData/sampleData";
+import { useDispatch, useSelector } from "react-redux";
+import { getPerfiles } from "../slices/perfilesSlice";
 
 const DialogContainer = styled.div`
    width: 100%;
@@ -19,6 +20,8 @@ const empresaNombre = "empresaNombre";
 const empresaRut = "empresaRut";
 
 export default function EditarEmpresa({ empresa, dialogName, show }) {
+   const dispatch = useDispatch();
+   const perfiles = useSelector(getPerfiles);
    const defaultValues = {
       empresaNombre: "",
       empresaRut: "",

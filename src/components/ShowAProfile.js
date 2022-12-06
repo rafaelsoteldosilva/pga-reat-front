@@ -12,7 +12,8 @@ import {
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarPerfil from "./EditarPerfil.js";
-import { perfiles } from "../sampleData/sampleData.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getPerfiles } from "../slices/perfilesSlice";
 
 const PerfilContainer = styled.div`
    width: 95%;
@@ -82,6 +83,8 @@ const UsuarioContainer = styled.div`
 `;
 
 export default function ShowAProfile({ perfil, index }) {
+   const dispatch = useDispatch();
+   const perfiles = useSelector(getPerfiles);
    const [show, setShow] = useState(false);
    function showModal() {
       setShow(true);
