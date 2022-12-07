@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import styled from "styled-components";
+import Select from "react-select";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getPerfiles } from "../slices/perfilesSlice";
@@ -13,7 +14,7 @@ const DialogNameContainer = styled.div`
 const usuarioName = "usuarioName";
 const usuarioRut = "usuarioRut";
 
-export default function Usuario({ usuario, dialogName }) {
+export default function Usuario({ usuario, dialogName, show }) {
    const dispatch = useDispatch();
    const perfiles = useSelector(getPerfiles);
    const defaultValues = {
@@ -21,6 +22,9 @@ export default function Usuario({ usuario, dialogName }) {
       usuarioRut: "",
    };
    const [formValues, setFormValues] = useState(defaultValues);
+   const [profileOptions, setProfileOptions] = useState([]);
+   const [profileSelectedOptions, setProfileSelectedOptions] = useState([]);
+   const [initialSelectOptions, setInitialSelectOptions] = useState([]);
 
    useEffect(() => {
       if (usuario !== null) {
@@ -35,6 +39,55 @@ export default function Usuario({ usuario, dialogName }) {
          });
       }
    }, []);
+
+   useEffect(() => {
+      if (show) {
+         setProfileOptions([]);
+         setProfileSelectedOptions([]);
+         setProfileInitialOptions(usuario);
+      }
+   }, [show]);
+
+   function isNotEmpty(data) {
+      if (typeof data === "undefined") return false;
+      if (data == null) return false;
+      if (data) return true;
+   }
+
+   function setProfileInitialOptions(usuario) {
+      let initialOptions = [];
+      if (isNotEmpty(usuario)) {
+         if (usuario.attributes.perfil.data.length > 0) {
+            let otherObject = {};
+            let valueObject = {};
+            usuario.attributes.perfil.data.map((perfil) => {
+               valueObject["nombre"] = perfil.attributes.nombre;
+               valueObject["id"] = perfil.id;
+               otherObject = {
+                  value: valueObject,
+                  label: valueObject.nombre,
+               };
+               initialOptions.push(otherObject);
+               setInitialSelectOptions(initialOptions);
+            });
+         }
+      }
+      perfiles.data.map((perfil, index) => {
+         let newValueObject = {};
+         newValueObject["nombre"] = perfil.attributes.nombre;
+         newValueObject["id"] = perfil.id;
+         let newObject = {
+            value: newValueObject,
+            label: newValueObject.nombre,
+         };
+
+         setProfileOptions((current) => [...current, newObject]);
+      });
+   }
+
+   function handlePerfilesSelectChange(selectedOption) {
+      setProfileSelectedOptions(selectedOption);
+   }
 
    function handleChange(e) {
       let { name, value } = e.target;
@@ -67,6 +120,12 @@ export default function Usuario({ usuario, dialogName }) {
       }
    }
 
+   const ShowOptions = () => {
+      console.log("initialSelectOptions: ", initialSelectOptions);
+      console.log("profileOptions: ", profileOptions);
+      return <div></div>;
+   };
+
    return (
       <div>
          <DialogNameContainer>
@@ -89,7 +148,6 @@ export default function Usuario({ usuario, dialogName }) {
             <label style={{ marginTop: "10px" }}>
                Rut:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                <input
-                  //   format="##.###.###-#"
                   type="text"
                   name={usuarioRut}
                   value={formValues.usuarioRut}
@@ -101,6 +159,13 @@ export default function Usuario({ usuario, dialogName }) {
                style={{ width: "100px", margin: "3px", marginTop: "5px" }}
                type="submit"
                value="Submit"
+            />
+            <ShowOptions />
+            <Select
+               defaultValue={initialSelectOptions}
+               isMulti
+               onChange={handlePerfilesSelectChange}
+               options={profileOptions}
             />
          </form>
       </div>

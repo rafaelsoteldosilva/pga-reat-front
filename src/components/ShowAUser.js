@@ -141,7 +141,11 @@ export default function ShowAUser({ usuario, index }) {
                />
             </DeleteContainer>
             <GlobalModal show={show} handleClose={hideModal}>
-               <EditarUsuario usuario={usuario} dialogName="Editar Usuario" />
+               <EditarUsuario
+                  usuario={usuario}
+                  dialogName="Editar Usuario"
+                  show={show}
+               />
             </GlobalModal>
          </UsuarioContainer>
          {usuario.attributes.perfil.data.length > 0 &&
