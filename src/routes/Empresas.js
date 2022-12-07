@@ -20,7 +20,6 @@ export default function Empresas() {
    const dispatch = useDispatch();
    const empresas = useSelector(getEmpresas);
    const empresasStatus = useSelector(getEmpresasStatus);
-   console.log("empresas:: ", empresas);
    const [show, setShow] = useState(false);
 
    function handleClickNueva() {

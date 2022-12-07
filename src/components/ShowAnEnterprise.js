@@ -107,27 +107,26 @@ export default function ShowAnEnterprise({ empresa, index }) {
    function handleDeleteClick(empresa, index) {
       console.log(`deleting empresa ${empresa.attributes.nombre}`, index);
    }
-   function searchUserInUsuarios(perfilId) {
-      let notFound = true;
-      let MyUser;
-      usuarios.data.forEach((element) => {
-         console.log(element.attributes.perfil.data);
-         element.attributes.perfil.data.forEach((profile) => {
-            console.log(profile);
-            if (element.id === perfilId) notFound = false;
-         });
-      });
-      // let MyUser = usuarios.data.find((user) =>
-      //    user.attributes.perfil.data.length === 0
-      //       ? false
-      //       : user.attributes.perfil.data.find(
-      //            (perfil) => perfil.id === perfilId
-      //         )
-      // );
-      // if (typeof MyUser !== "undefined") {
-      //    return MyUser;
-      // } else return null;
-   }
+   // function searchUserInUsuarios(perfilId) {
+   //    let notFound = true;
+   //    let MyUser;
+   //    usuarios.data.forEach((element) => {
+   //       console.log(element.attributes.perfil.data);
+   //       element.attributes.perfil.data.forEach((profile) => {
+   //          if (element.id === perfilId) notFound = false;
+   //       });
+   //    });
+   //    // let MyUser = usuarios.data.find((user) =>
+   //    //    user.attributes.perfil.data.length === 0
+   //    //       ? false
+   //    //       : user.attributes.perfil.data.find(
+   //    //            (perfil) => perfil.id === perfilId
+   //    //         )
+   //    // );
+   //    // if (typeof MyUser !== "undefined") {
+   //    //    return MyUser;
+   //    // } else return null;
+   // }
    return (
       <React.Fragment>
          <EmpresaContainer>
@@ -154,6 +153,7 @@ export default function ShowAnEnterprise({ empresa, index }) {
                   empresa={empresa}
                   dialogName="Editar Empresa"
                   show={show}
+                  setShow={setShow}
                />
             </GlobalModal>
          </EmpresaContainer>

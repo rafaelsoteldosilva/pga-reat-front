@@ -9,7 +9,6 @@ export function useCheckRedux() {
    const dispatch = useDispatch();
 
    if (!store.getState().empresas.empresasStatus !== "succeeded") {
-      console.log("reading data...");
       dispatch(resetEmpresas());
       dispatch(fetchEmpresas());
 

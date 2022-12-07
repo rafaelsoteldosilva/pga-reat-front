@@ -19,7 +19,7 @@ const DialogNameContainer = styled.div`
 const empresaNombre = "empresaNombre";
 const empresaRut = "empresaRut";
 
-export default function EditarEmpresa({ empresa, dialogName, show }) {
+export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
    const dispatch = useDispatch();
    const perfiles = useSelector(getPerfiles);
    const defaultValues = {
@@ -125,8 +125,27 @@ export default function EditarEmpresa({ empresa, dialogName, show }) {
 
    function handleSubmit(e) {
       e.preventDefault();
+      let relation = -1;
+      let body = {};
       if (validateBothFields()) {
-         alert("Formulario enviado");
+         if (isNotEmpty(profileSelectedOption)) {
+            relation = profileSelectedOption.value.id;
+         }
+         if (relation > -1) {
+            body = {
+               nombre: formValues.empresaNombre,
+               rut: formValues.empresaRut,
+               perfil: relation,
+            };
+         } else {
+            body = {
+               nombre: formValues.empresaNombre,
+               rut: formValues.empresaRut,
+            };
+         }
+
+         console.log("body:: ", body);
+         setShow(false);
       }
    }
 
@@ -166,17 +185,42 @@ export default function EditarEmpresa({ empresa, dialogName, show }) {
                   style={{ margin: "0 0 0 10px" }}
                />
             </label>
-            <input
-               style={{ width: "100px", margin: "3px", marginTop: "5px" }}
-               type="submit"
-               value="Submit"
-            />
             <Select
                defaultValue={profileSelectedOption}
                value={profileSelectedOption}
                onChange={handleSelectChange}
                options={profileOptions}
             />
+            <div>
+               <input
+                  style={{
+                     width: "100px",
+                     margin: "3px",
+                     marginTop: "5px",
+                     backgroundColor: "#289325",
+                     color: "white",
+                     borderRadius: "8px",
+                     cursor: "pointer",
+                  }}
+                  type="submit"
+                  value="Enviar"
+               />
+               <input
+                  style={{
+                     width: "100px",
+                     margin: "3px",
+                     marginTop: "5px",
+                     backgroundColor: "#289325",
+                     color: "white",
+                     borderRadius: "8px",
+                     textAlign: "center",
+                     cursor: "pointer",
+                  }}
+                  type="submit"
+                  value="Cancelar"
+                  onClick={() => setShow(false)}
+               />
+            </div>
          </form>
       </DialogContainer>
    );

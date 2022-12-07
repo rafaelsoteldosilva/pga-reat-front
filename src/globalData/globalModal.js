@@ -27,12 +27,7 @@ const ModalMain = styled.div`
 export const GlobalModal = ({ handleClose, show, children }) => {
    return (
       <ModalComponent show={show}>
-         <ModalMain>
-            {children}
-            <Button style={{ marginTop: "10px" }} onClick={handleClose}>
-               Close
-            </Button>
-         </ModalMain>
+         <ModalMain>{children}</ModalMain>
       </ModalComponent>
    );
 };

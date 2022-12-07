@@ -27,8 +27,8 @@ export const Button = styled.button`
         `}
    width: 10%;
    background-color: ${({ theme, disabled }) =>
-      disabled ? "hsl(0, 0%, 30%)" : "hsl(359, 99%, 60%)"};
-   color: "black";
+      disabled ? "hsl(0, 0%, 30%)" : "#289325"};
+   color: white;
    border-radius: 8px;
    &:hover {
       background-color: ${({ theme, disabled }) =>

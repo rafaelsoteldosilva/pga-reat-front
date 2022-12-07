@@ -109,10 +109,6 @@ export default function ShowAUser({ usuario, index }) {
    function searchEnterpriseInEmpresas(perfilId) {
       let MyEmpresa = null;
       MyEmpresa = empresas.data.find((empresa) => {
-         console.log(
-            "empresa.attributes.perfil.data:: ",
-            empresa.attributes.perfil.data
-         );
          return empresa.attributes.perfil.data !== null
             ? empresa.attributes.perfil.data.id === perfilId
             : false;
@@ -145,6 +141,7 @@ export default function ShowAUser({ usuario, index }) {
                   usuario={usuario}
                   dialogName="Editar Usuario"
                   show={show}
+                  setShow={setShow}
                />
             </GlobalModal>
          </UsuarioContainer>

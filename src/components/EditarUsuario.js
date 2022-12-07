@@ -14,7 +14,7 @@ const DialogNameContainer = styled.div`
 const usuarioName = "usuarioName";
 const usuarioRut = "usuarioRut";
 
-export default function Usuario({ usuario, dialogName, show }) {
+export default function Usuario({ usuario, dialogName, show, setShow }) {
    const dispatch = useDispatch();
    const perfiles = useSelector(getPerfiles);
    const defaultValues = {
@@ -58,15 +58,18 @@ export default function Usuario({ usuario, dialogName, show }) {
       let initialOptions = [];
       if (isNotEmpty(usuario)) {
          if (usuario.attributes.perfil.data.length > 0) {
-            let otherObject = {};
-            let valueObject = {};
             usuario.attributes.perfil.data.map((perfil) => {
+               let otherObject = {};
+               let valueObject = {};
+               console.log("found a new anitial object:: ", perfil);
+
                valueObject["nombre"] = perfil.attributes.nombre;
                valueObject["id"] = perfil.id;
                otherObject = {
                   value: valueObject,
                   label: valueObject.nombre,
                };
+               console.log("adding an anitial object:: ", otherObject);
                initialOptions.push(otherObject);
             });
          }
@@ -116,8 +119,29 @@ export default function Usuario({ usuario, dialogName, show }) {
 
    function handleSubmit(e) {
       e.preventDefault();
+      let relations = [];
+      let body = {};
       if (validateBothFields()) {
-         alert("Formulario enviado");
+         if (isNotEmpty(profileSelectedOptions)) {
+            relations = profileSelectedOptions.map(
+               (element) => element.value.id
+            );
+         }
+         if (relations.length > 0) {
+            body = {
+               nombre: formValues.usuarioName,
+               rut: formValues.usuarioRut,
+               perfil: relations,
+            };
+         } else {
+            body = {
+               nombre: formValues.usuarioName,
+               rut: formValues.usuarioRut,
+            };
+         }
+
+         console.log("body:: ", body);
+         setShow(false);
       }
    }
 
@@ -156,12 +180,6 @@ export default function Usuario({ usuario, dialogName, show }) {
                   style={{ margin: "0 0 0 10px" }}
                />
             </label>
-            <input
-               style={{ width: "100px", margin: "3px", marginTop: "5px" }}
-               type="submit"
-               value="Submit"
-            />
-            <ShowOptions />
             {initialSelectOptions && profileOptions && (
                <Select
                   defaultValue={initialSelectOptions}
@@ -171,6 +189,36 @@ export default function Usuario({ usuario, dialogName, show }) {
                   options={profileOptions}
                />
             )}
+            <div>
+               <input
+                  style={{
+                     width: "100px",
+                     margin: "3px",
+                     marginTop: "5px",
+                     backgroundColor: "#289325",
+                     color: "white",
+                     borderRadius: "8px",
+                     cursor: "pointer",
+                  }}
+                  type="submit"
+                  value="Enviar"
+               />
+               <input
+                  style={{
+                     width: "100px",
+                     margin: "3px",
+                     marginTop: "5px",
+                     backgroundColor: "#289325",
+                     color: "white",
+                     borderRadius: "8px",
+                     textAlign: "center",
+                     cursor: "pointer",
+                  }}
+                  type="submit"
+                  value="Cancelar"
+                  onClick={() => setShow(false)}
+               />
+            </div>
          </form>
       </div>
    );

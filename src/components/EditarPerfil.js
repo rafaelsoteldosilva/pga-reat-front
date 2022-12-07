@@ -15,7 +15,7 @@ const DialogNameContainer = styled.div`
 const perfilNombre = "perfilNombre";
 const perfilCargo = "perfilCargo";
 
-export default function EditarPerfil({ perfil, dialogName, show }) {
+export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
    const dispatch = useDispatch();
    const empresas = useSelector(getEmpresas);
    const usuarios = useSelector(getUsuarios);
@@ -121,28 +121,20 @@ export default function EditarPerfil({ perfil, dialogName, show }) {
                value: valueObject,
                label: valueObject.nombre,
             };
-            console.log(
-               "usuario is not empty, adding it :: ",
-               valueObject.nombre
-            );
+            // console.log(
+            //    "usuario is not empty, adding it :: ",
+            //    valueObject.nombre
+            // );
             initialObject = newObject;
             // usuariosArray.push(newObject);
             // setUsuarioOptions((current) => [...current, newObject]);
          }
       }
       usuarios.data.map((usuario, index) => {
-         console.log("usuario:: ", usuario);
          let objectIsIncluded = false;
-         console.log(
-            "is usuario.id === valueObject.id:: ",
-            usuario.id === valueObject.id
-         );
+
          if (Object.keys(valueObject) !== 0) {
             if (usuario.id === valueObject.id) {
-               console.log(
-                  "usuario already included, not including it.",
-                  valueObject.nombre
-               );
                objectIsIncluded = true;
                valueObject = {};
             }
@@ -155,11 +147,9 @@ export default function EditarPerfil({ perfil, dialogName, show }) {
                value: newValueObject,
                label: newValueObject.nombre,
             };
-            console.log("adding usuario: ", newValueObject.nombre);
             usuariosArray.push(newObject);
          }
       });
-      console.log("usuariosArray:: ", usuariosArray);
       setUsuarioOptions((current) => [...usuariosArray]);
       setUsuarioSelectedOption(initialObject);
    }
@@ -197,8 +187,29 @@ export default function EditarPerfil({ perfil, dialogName, show }) {
 
    function handleSubmit(e) {
       e.preventDefault();
+      let empresaRelation = -1;
+      let usuarioRelation = -1;
+      let body = {};
       if (validateBothFields()) {
-         alert("Formulario enviado");
+         if (isNotEmpty(empresaSelectedOption)) {
+            empresaRelation = empresaSelectedOption.value.id;
+         }
+         if (isNotEmpty(usuarioSelectedOption)) {
+            usuarioRelation = usuarioSelectedOption.value.id;
+         }
+         body = {
+            nombre: formValues.perfilNombre,
+            cargo: formValues.perfilCargo,
+         };
+         if (empresaRelation > -1) {
+            body["empresa"] = empresaRelation;
+         }
+         if (usuarioRelation > -1) {
+            body["usuario"] = usuarioRelation;
+         }
+
+         console.log("body:: ", body);
+         setShow(false);
       }
    }
 
@@ -240,12 +251,6 @@ export default function EditarPerfil({ perfil, dialogName, show }) {
                   style={{ margin: "0 0 0 10px" }}
                />
             </label>
-            <input
-               style={{ width: "100px", margin: "3px", marginTop: "5px" }}
-               type="submit"
-               value="Submit"
-            />
-            <ShowOptions />
 
             <Select
                defaultValue={empresaSelectedOption}
@@ -259,6 +264,36 @@ export default function EditarPerfil({ perfil, dialogName, show }) {
                onChange={handleUsuarioSelectChange}
                options={usuarioOptions}
             />
+            <div>
+               <input
+                  style={{
+                     width: "100px",
+                     margin: "3px",
+                     marginTop: "5px",
+                     backgroundColor: "#289325",
+                     color: "white",
+                     borderRadius: "8px",
+                     cursor: "pointer",
+                  }}
+                  type="submit"
+                  value="Enviar"
+               />
+               <input
+                  style={{
+                     width: "100px",
+                     margin: "3px",
+                     marginTop: "5px",
+                     backgroundColor: "#289325",
+                     color: "white",
+                     borderRadius: "8px",
+                     textAlign: "center",
+                     cursor: "pointer",
+                  }}
+                  type="submit"
+                  value="Cancelar"
+                  onClick={() => setShow(false)}
+               />
+            </div>
          </form>
       </div>
    );

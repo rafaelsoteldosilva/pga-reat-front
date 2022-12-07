@@ -127,6 +127,7 @@ export default function ShowAProfile({ perfil, index }) {
                   perfil={perfil}
                   dialogName="Editar Perfil"
                   show={show}
+                  setShow={setShow}
                />
             </GlobalModal>
          </PerfilContainer>
