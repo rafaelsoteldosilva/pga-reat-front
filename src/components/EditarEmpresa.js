@@ -75,6 +75,7 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
          }
       }
       perfiles.data.map((perfil, index) => {
+         console.log("agregando items to select");
          let objectIsIncluded = false;
          if (Object.keys(valueObject) !== 0) {
             if (perfil.id === valueObject.id) {
@@ -186,7 +187,7 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
                />
             </label>
             <label style={{ marginTop: "10px" }}>
-               <p style={{ marginBottom: "10px" }}>Seleccione el un perfil:</p>
+               <p style={{ marginBottom: "10px" }}>Seleccione un perfil:</p>
                <Select
                   defaultValue={profileSelectedOption}
                   value={profileSelectedOption}
@@ -205,8 +206,8 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
                      borderRadius: "8px",
                      cursor: "pointer",
                   }}
+                  defaultValue="Enviar"
                   type="submit"
-                  value="Enviar"
                />
                <input
                   style={{
@@ -219,8 +220,9 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
                      textAlign: "center",
                      cursor: "pointer",
                   }}
-                  type="submit"
-                  value="Cancelar"
+                  defaultValue="Cancelar"
+                  type="cancel"
+                  name="cancel"
                   onClick={() => setShow(false)}
                />
             </div>

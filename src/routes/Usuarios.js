@@ -7,7 +7,7 @@ import { Button } from "../globalData/globalStyles";
 import styled from "styled-components";
 import { GlobalModal } from "../globalData/globalModal";
 
-import EditarUsuario from "../components/EditarEmpresa";
+import EditarUsuario from "../components/EditarUsuario";
 
 const UsuariosContainer = styled.div`
    width: 100%;
@@ -44,7 +44,12 @@ export default function Usuarios() {
                <ShowAUser key={index} usuario={usuario} index={index} />
             ))}
             <GlobalModal show={show} handleClose={hideModal}>
-               <EditarUsuario empresa={null} dialogName="Nuevo Usuario" />
+               <EditarUsuario
+                  usuario={null}
+                  dialogName="Nuevo Usuario"
+                  show={show}
+                  setShow={setShow}
+               />
             </GlobalModal>
          </UsuariosContainer>
       );

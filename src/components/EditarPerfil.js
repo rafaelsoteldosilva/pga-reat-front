@@ -281,7 +281,7 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
                      cursor: "pointer",
                   }}
                   type="submit"
-                  value="Enviar"
+                  defaultValue="Enviar"
                />
                <input
                   style={{
@@ -294,8 +294,9 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
                      textAlign: "center",
                      cursor: "pointer",
                   }}
-                  type="submit"
-                  value="Cancelar"
+                  type="cancel"
+                  name="cancel"
+                  defaultValue="Cancelar"
                   onClick={() => setShow(false)}
                />
             </div>

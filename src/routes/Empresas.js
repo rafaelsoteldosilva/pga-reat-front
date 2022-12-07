@@ -49,7 +49,12 @@ export default function Empresas() {
                <ShowAnEnterprise key={index} empresa={empresa} index={index} />
             ))}
             <GlobalModal show={show} handleClose={hideModal}>
-               <EditarEmpresa empresa={null} dialogName="Nueva Empresa" />
+               <EditarEmpresa
+                  empresa={null}
+                  dialogName="Nueva Empresa"
+                  show={show}
+                  setShow={setShow}
+               />
             </GlobalModal>
          </EmpresasContainer>
       );

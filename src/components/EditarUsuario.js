@@ -14,7 +14,7 @@ const DialogNameContainer = styled.div`
 const usuarioName = "usuarioName";
 const usuarioRut = "usuarioRut";
 
-export default function Usuario({ usuario, dialogName, show, setShow }) {
+export default function EditarUsuario({ usuario, dialogName, show, setShow }) {
    const dispatch = useDispatch();
    const perfiles = useSelector(getPerfiles);
    const defaultValues = {
@@ -61,7 +61,6 @@ export default function Usuario({ usuario, dialogName, show, setShow }) {
             usuario.attributes.perfil.data.map((perfil) => {
                let otherObject = {};
                let valueObject = {};
-               console.log("found a new anitial object:: ", perfil);
 
                valueObject["nombre"] = perfil.attributes.nombre;
                valueObject["id"] = perfil.id;
@@ -69,7 +68,6 @@ export default function Usuario({ usuario, dialogName, show, setShow }) {
                   value: valueObject,
                   label: valueObject.nombre,
                };
-               console.log("adding an anitial object:: ", otherObject);
                initialOptions.push(otherObject);
             });
          }
@@ -139,7 +137,6 @@ export default function Usuario({ usuario, dialogName, show, setShow }) {
                rut: formValues.usuarioRut,
             };
          }
-
          console.log("body:: ", body);
          setShow(false);
       }
@@ -180,22 +177,20 @@ export default function Usuario({ usuario, dialogName, show, setShow }) {
                   style={{ margin: "0 0 0 10px" }}
                />
             </label>
-            {initialSelectOptions && profileOptions && (
-               <div style={{ marginTop: "10px" }}>
-                  <label>
-                     <p style={{ marginBottom: "10px" }}>
-                        Seleccione los perfiles:
-                     </p>
-                     <Select
-                        defaultValue={initialSelectOptions}
-                        isMulti
-                        value={profileSelectedOptions}
-                        onChange={handlePerfilesSelectChange}
-                        options={profileOptions}
-                     />
-                  </label>
-               </div>
-            )}
+            <div style={{ marginTop: "10px" }}>
+               <label>
+                  <p style={{ marginBottom: "10px" }}>
+                     Seleccione los perfiles:
+                  </p>
+                  <Select
+                     defaultValue={initialSelectOptions}
+                     isMulti
+                     value={profileSelectedOptions}
+                     onChange={handlePerfilesSelectChange}
+                     options={profileOptions}
+                  />
+               </label>
+            </div>
             <div style={{ margin: "10px" }}>
                <input
                   style={{
@@ -208,7 +203,7 @@ export default function Usuario({ usuario, dialogName, show, setShow }) {
                      cursor: "pointer",
                   }}
                   type="submit"
-                  value="Enviar"
+                  defaultValue="Enviar"
                />
                <input
                   style={{
@@ -221,8 +216,9 @@ export default function Usuario({ usuario, dialogName, show, setShow }) {
                      textAlign: "center",
                      cursor: "pointer",
                   }}
-                  type="submit"
-                  value="Cancelar"
+                  type="cancel"
+                  name="cancel"
+                  defaultValue="Cancelar"
                   onClick={() => setShow(false)}
                />
             </div>

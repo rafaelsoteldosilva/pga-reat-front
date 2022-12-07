@@ -16,6 +16,7 @@ const Layout = () => {
       <React.Fragment>
          <Container>
             <ShowNavBar />
+
             <Outlet />
          </Container>
       </React.Fragment>

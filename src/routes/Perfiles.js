@@ -44,7 +44,12 @@ export default function Profiles() {
                <ShowAProfile key={index} perfil={perfil} index={index} />
             ))}
             <GlobalModal show={show} handleClose={hideModal}>
-               <EditarPerfil perfil={null} dialogName="Nuevo Perfil" />
+               <EditarPerfil
+                  perfil={null}
+                  dialogName="Nuevo Perfil"
+                  show={show}
+                  setShow={setShow}
+               />
             </GlobalModal>
          </ProfileContainer>
       );
