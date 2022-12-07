@@ -185,13 +185,16 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
                   style={{ margin: "0 0 0 10px" }}
                />
             </label>
-            <Select
-               defaultValue={profileSelectedOption}
-               value={profileSelectedOption}
-               onChange={handleSelectChange}
-               options={profileOptions}
-            />
-            <div>
+            <label style={{ marginTop: "10px" }}>
+               <p style={{ marginBottom: "10px" }}>Seleccione el un perfil:</p>
+               <Select
+                  defaultValue={profileSelectedOption}
+                  value={profileSelectedOption}
+                  onChange={handleSelectChange}
+                  options={profileOptions}
+               />
+            </label>
+            <div style={{ margin: "10px" }}>
                <input
                   style={{
                      width: "100px",

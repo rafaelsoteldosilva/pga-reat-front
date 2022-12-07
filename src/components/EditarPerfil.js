@@ -133,12 +133,12 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
       usuarios.data.map((usuario, index) => {
          let objectIsIncluded = false;
 
-         if (Object.keys(valueObject) !== 0) {
-            if (usuario.id === valueObject.id) {
-               objectIsIncluded = true;
-               valueObject = {};
-            }
-         }
+         // if (Object.keys(valueObject) !== 0) {
+         //    if (usuario.id === valueObject.id) {
+         //       objectIsIncluded = true;
+         //       valueObject = {};
+         //    }
+         // }
          if (!objectIsIncluded) {
             let newValueObject = {};
             newValueObject["nombre"] = usuario.attributes.nombre;
@@ -150,8 +150,8 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
             usuariosArray.push(newObject);
          }
       });
-      setUsuarioOptions((current) => [...usuariosArray]);
       setUsuarioSelectedOption(initialObject);
+      setUsuarioOptions((current) => [...usuariosArray]);
    }
 
    function handleEmpresaSelectChange(selectedOption) {
@@ -251,20 +251,25 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
                   style={{ margin: "0 0 0 10px" }}
                />
             </label>
-
-            <Select
-               defaultValue={empresaSelectedOption}
-               value={empresaSelectedOption}
-               onChange={handleEmpresaSelectChange}
-               options={empresaOptions}
-            />
-            <Select
-               defaultValue={usuarioSelectedOption}
-               value={usuarioSelectedOption}
-               onChange={handleUsuarioSelectChange}
-               options={usuarioOptions}
-            />
-            <div>
+            <label style={{ marginTop: "10px" }}>
+               <p style={{ marginBottom: "10px" }}>Seleccione una empresa:</p>
+               <Select
+                  defaultValue={empresaSelectedOption}
+                  value={empresaSelectedOption}
+                  onChange={handleEmpresaSelectChange}
+                  options={empresaOptions}
+               />
+            </label>
+            <label style={{ marginTop: "10px" }}>
+               <p style={{ marginBottom: "10px" }}>Seleccione un usuario:</p>
+               <Select
+                  defaultValue={usuarioSelectedOption}
+                  value={usuarioSelectedOption}
+                  onChange={handleUsuarioSelectChange}
+                  options={usuarioOptions}
+               />
+            </label>
+            <div style={{ margin: "10px" }}>
                <input
                   style={{
                      width: "100px",

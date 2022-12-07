@@ -181,15 +181,22 @@ export default function Usuario({ usuario, dialogName, show, setShow }) {
                />
             </label>
             {initialSelectOptions && profileOptions && (
-               <Select
-                  defaultValue={initialSelectOptions}
-                  isMulti
-                  value={profileSelectedOptions}
-                  onChange={handlePerfilesSelectChange}
-                  options={profileOptions}
-               />
+               <div style={{ marginTop: "10px" }}>
+                  <label>
+                     <p style={{ marginBottom: "10px" }}>
+                        Seleccione los perfiles:
+                     </p>
+                     <Select
+                        defaultValue={initialSelectOptions}
+                        isMulti
+                        value={profileSelectedOptions}
+                        onChange={handlePerfilesSelectChange}
+                        options={profileOptions}
+                     />
+                  </label>
+               </div>
             )}
-            <div>
+            <div style={{ margin: "10px" }}>
                <input
                   style={{
                      width: "100px",
