@@ -171,7 +171,6 @@ export default function EditarEmpresa({ empresa, dialogName, show }) {
                type="submit"
                value="Submit"
             />
-            <ShowOptions />
             <Select
                defaultValue={profileSelectedOption}
                value={profileSelectedOption}

@@ -24,7 +24,7 @@ export default function Usuario({ usuario, dialogName, show }) {
    const [formValues, setFormValues] = useState(defaultValues);
    const [profileOptions, setProfileOptions] = useState([]);
    const [profileSelectedOptions, setProfileSelectedOptions] = useState([]);
-   const [initialSelectOptions, setInitialSelectOptions] = useState([]);
+   const [initialSelectOptions, setInitialSelectOptions] = useState({});
 
    useEffect(() => {
       if (usuario !== null) {
@@ -68,10 +68,11 @@ export default function Usuario({ usuario, dialogName, show }) {
                   label: valueObject.nombre,
                };
                initialOptions.push(otherObject);
-               setInitialSelectOptions(initialOptions);
             });
          }
       }
+      setInitialSelectOptions(initialOptions);
+      setProfileSelectedOptions(initialOptions);
       perfiles.data.map((perfil, index) => {
          let newValueObject = {};
          newValueObject["nombre"] = perfil.attributes.nombre;
@@ -161,12 +162,15 @@ export default function Usuario({ usuario, dialogName, show }) {
                value="Submit"
             />
             <ShowOptions />
-            <Select
-               defaultValue={initialSelectOptions}
-               isMulti
-               onChange={handlePerfilesSelectChange}
-               options={profileOptions}
-            />
+            {initialSelectOptions && profileOptions && (
+               <Select
+                  defaultValue={initialSelectOptions}
+                  isMulti
+                  value={profileSelectedOptions}
+                  onChange={handlePerfilesSelectChange}
+                  options={profileOptions}
+               />
+            )}
          </form>
       </div>
    );
