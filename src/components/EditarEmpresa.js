@@ -66,6 +66,16 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
 
    function setProfileInitialOption(empresa) {
       let valueObject = {};
+      let noneObject = {
+         value: {
+            nombre: "none",
+            id: -1,
+         },
+         label: "none",
+      };
+      setProfileOptions([noneObject]);
+      setProfileSelectedOption(noneObject);
+
       if (isNotEmpty(empresa)) {
          if (isNotEmpty(empresa.attributes.perfil.data)) {
             valueObject["nombre"] =
@@ -135,7 +145,7 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
       let relation = -1;
       let body = {};
       if (validateBothFields()) {
-         if (isNotEmpty(profileSelectedOption)) {
+         if (profileSelectedOption.label !== "none") {
             relation = profileSelectedOption.value.id;
          }
          if (relation > -1) {

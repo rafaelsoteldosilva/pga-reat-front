@@ -61,6 +61,14 @@ export default function EditarUsuario({ usuario, dialogName, show, setShow }) {
 
    function setProfileInitialOptions(usuario) {
       let initialOptions = [];
+      // let noneObject = {
+      //    value: {
+      //       nombre: "none",
+      //       id: -1,
+      //    },
+      //    label: "none",
+      // };
+      // initialOptions.push(noneObject);
       if (isNotEmpty(usuario)) {
          if (usuario.attributes.perfil.data.length > 0) {
             usuario.attributes.perfil.data.forEach((perfil) => {

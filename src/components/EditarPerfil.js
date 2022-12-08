@@ -77,7 +77,17 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
    }
 
    function setEmpresaInitialOption(perfil) {
+      let initialEmpresaObject = {};
       let valueObject = {};
+      let noneObject = {
+         value: {
+            nombre: "none",
+            id: -1,
+         },
+         label: "none",
+      };
+      initialEmpresaObject = noneObject;
+
       if (isNotEmpty(perfil)) {
          if (isNotEmpty(perfil.attributes.empresa.data)) {
             valueObject["nombre"] =
@@ -87,18 +97,14 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
                value: valueObject,
                label: valueObject.nombre,
             };
-            setEmpresaOptions((current) => [...current, newObject]);
-
-            setEmpresaSelectedOption(newObject);
+            initialEmpresaObject = newObject;
          }
       }
+
+      let empresasArray = [noneObject];
       empresas.data.forEach((empresa) => {
          let objectIsIncluded = false;
-         if (Object.keys(valueObject) !== 0) {
-            if (empresa.id === valueObject.id) {
-               objectIsIncluded = true;
-            }
-         }
+
          if (!objectIsIncluded) {
             let newValueObject = {};
             newValueObject["nombre"] = empresa.attributes.nombre;
@@ -107,16 +113,25 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
                value: newValueObject,
                label: newValueObject.nombre,
             };
-
-            setEmpresaOptions((current) => [...current, newObject]);
+            empresasArray.push(newObject);
          }
       });
+      setEmpresaSelectedOption(initialEmpresaObject);
+      setEmpresaOptions([...empresasArray]);
    }
 
    function setUsuarioInitialOption(perfil) {
+      let initialUsuarioObject = {};
       let valueObject = {};
-      let usuariosArray = [];
-      let initialObject = {};
+      let noneObject = {
+         value: {
+            nombre: "none",
+            id: -1,
+         },
+         label: "none",
+      };
+      initialUsuarioObject = noneObject;
+
       if (isNotEmpty(perfil)) {
          if (isNotEmpty(perfil.attributes.usuario.data)) {
             valueObject["nombre"] =
@@ -126,9 +141,11 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
                value: valueObject,
                label: valueObject.nombre,
             };
-            initialObject = newObject;
+            initialUsuarioObject = newObject;
          }
       }
+
+      let usuariosArray = [noneObject];
       usuarios.data.forEach((usuario) => {
          let objectIsIncluded = false;
 
@@ -143,7 +160,7 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
             usuariosArray.push(newObject);
          }
       });
-      setUsuarioSelectedOption(initialObject);
+      setUsuarioSelectedOption(initialUsuarioObject);
       setUsuarioOptions([...usuariosArray]);
    }
 
@@ -184,10 +201,10 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
       let usuarioRelation = -1;
       let body = {};
       if (validateBothFields()) {
-         if (isNotEmpty(empresaSelectedOption)) {
+         if (empresaSelectedOption.label !== "none") {
             empresaRelation = empresaSelectedOption.value.id;
          }
-         if (isNotEmpty(usuarioSelectedOption)) {
+         if (usuarioSelectedOption.label !== "none") {
             usuarioRelation = usuarioSelectedOption.value.id;
          }
          body = {
