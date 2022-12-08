@@ -6,6 +6,7 @@ import Select from "react-select";
 import { useSelector } from "react-redux";
 import { getEmpresas } from "../slices/empresasSlice";
 import { getUsuarios } from "../slices/usuariosSlice";
+import { postPerfilToApi, putPerfilToApi } from "../axiosCalls/axiosAPICalls";
 
 const DialogNameContainer = styled.div`
    width: 100%;
@@ -63,6 +64,11 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
          setUsuarioSelectedOption(null);
       }
    }, [show]);
+
+   function isCreate() {
+      if (isNotEmpty(perfil)) return false;
+      else return true;
+   }
 
    function isNotEmpty(data) {
       if (typeof data === "undefined") return false;
@@ -196,6 +202,11 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
          }
 
          console.log("body:: ", body);
+         if (isCreate()) {
+            postPerfilToApi(body);
+         } else {
+            putPerfilToApi(body, perfil.id);
+         }
          setShow(false);
       }
    }

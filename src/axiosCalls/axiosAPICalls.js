@@ -36,8 +36,13 @@ export async function getEmpresasFromApi() {
 }
 
 export async function postEmpresaToApi(body) {
+   let strapiBody = {
+      data: {
+         ...body,
+      },
+   };
    try {
-      const response = await apiCall.post("/empresas", body);
+      const response = await apiCall.post("/empresas", strapiBody);
       return response.data;
    } catch (error) {
       console.log("axios error, postEmpresaToApi:: ", error);
@@ -45,9 +50,14 @@ export async function postEmpresaToApi(body) {
    }
 }
 
-export async function putEmpresaToApi(body) {
+export async function putEmpresaToApi(body, empresaId) {
+   let strapiBody = {
+      data: {
+         ...body,
+      },
+   };
    try {
-      const response = await apiCall.put("/empresas", body);
+      const response = await apiCall.put(`/empresas/${empresaId}`, strapiBody);
       return response.data;
    } catch (error) {
       console.log("axios error, putEmpresaToApi:: ", error);
@@ -77,8 +87,13 @@ export async function getPerfilesFromApi() {
 }
 
 export async function postPerfilToApi(body) {
+   let strapiBody = {
+      data: {
+         ...body,
+      },
+   };
    try {
-      const response = await apiCall.post("/perfiles", body);
+      const response = await apiCall.post("/perfiles", strapiBody);
       return response.data;
    } catch (error) {
       console.log("axios error, postPerfilToApi:: ", error);
@@ -86,9 +101,14 @@ export async function postPerfilToApi(body) {
    }
 }
 
-export async function putPerfilToApi(body) {
+export async function putPerfilToApi(body, perfilId) {
+   let strapiBody = {
+      data: {
+         ...body,
+      },
+   };
    try {
-      const response = await apiCall.put("/perfiles", body);
+      const response = await apiCall.put(`/perfiles/${perfilId}`, strapiBody);
       return response.data;
    } catch (error) {
       console.log("axios error, putPerfilToApi:: ", error);
@@ -118,8 +138,13 @@ export async function getUsuariosFromApi() {
 }
 
 export async function postUsuarioToApi(body) {
+   let strapiBody = {
+      data: {
+         ...body,
+      },
+   };
    try {
-      const response = await apiCall.post("/usuarios", body);
+      const response = await apiCall.post("/usuarios", strapiBody);
       return response.data;
    } catch (error) {
       console.log("axios error, postUsuarioToApi:: ", error);
@@ -127,9 +152,14 @@ export async function postUsuarioToApi(body) {
    }
 }
 
-export async function putUsuarioToApi(body) {
+export async function putUsuarioToApi(body, UsuarioId) {
+   let strapiBody = {
+      data: {
+         ...body,
+      },
+   };
    try {
-      const response = await apiCall.put("/usuarios", body);
+      const response = await apiCall.put(`/usuarios/${UsuarioId}`, strapiBody);
       return response.data;
    } catch (error) {
       console.log("axios error, putUsuarioToApi:: ", error);

@@ -5,6 +5,8 @@ import Select from "react-select";
 
 import { useSelector } from "react-redux";
 import { getPerfiles } from "../slices/perfilesSlice";
+import { postEmpresaToApi, putEmpresaToApi } from "../axiosCalls/axiosAPICalls";
+import { loadData } from "../utils/loadData";
 
 const DialogContainer = styled.div`
    width: 100%;
@@ -50,6 +52,11 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
          setProfileInitialOption(empresa);
       }
    }, [show]);
+
+   function isCreate() {
+      if (isNotEmpty(empresa)) return false;
+      else return true;
+   }
 
    function isNotEmpty(data) {
       if (typeof data === "undefined") return false;
@@ -144,7 +151,12 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
             };
          }
 
-         console.log("body:: ", body);
+         if (isCreate()) {
+            postEmpresaToApi(body);
+         } else {
+            putEmpresaToApi(body, empresa.id);
+         }
+         loadData();
          setShow(false);
       }
    }

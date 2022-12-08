@@ -5,6 +5,7 @@ import Select from "react-select";
 
 import { useSelector } from "react-redux";
 import { getPerfiles } from "../slices/perfilesSlice";
+import { postUsuarioToApi, putUsuarioToApi } from "../axiosCalls/axiosAPICalls";
 
 const DialogNameContainer = styled.div`
    width: 100%;
@@ -46,6 +47,11 @@ export default function EditarUsuario({ usuario, dialogName, show, setShow }) {
          setProfileInitialOptions(usuario);
       }
    }, [show]);
+
+   function isCreate() {
+      if (isNotEmpty(usuario)) return false;
+      else return true;
+   }
 
    function isNotEmpty(data) {
       if (typeof data === "undefined") return false;
@@ -137,6 +143,11 @@ export default function EditarUsuario({ usuario, dialogName, show, setShow }) {
             };
          }
          console.log("body:: ", body);
+         if (isCreate()) {
+            postUsuarioToApi(body);
+         } else {
+            putUsuarioToApi(body, usuario.id);
+         }
          setShow(false);
       }
    }
