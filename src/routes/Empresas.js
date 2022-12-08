@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ShowAnEnterprise from "../components/MostrarEmpresaEnLista";
+import MostrarEmpresaEnLista from "../components/MostrarEmpresaEnLista";
 import { useSelector } from "react-redux";
 import { getEmpresas, getEmpresasStatus } from "../slices/empresasSlice";
 import { Button } from "../globalData/globalStyles";
@@ -42,7 +42,11 @@ export default function Empresas() {
                Nueva Empresa
             </Button>
             {empresas.data.map((empresa, index) => (
-               <ShowAnEnterprise key={index} empresa={empresa} index={index} />
+               <MostrarEmpresaEnLista
+                  key={index}
+                  empresa={empresa}
+                  index={index}
+               />
             ))}
             <GlobalModal show={show} handleClose={hideModal}>
                <EditarEmpresa

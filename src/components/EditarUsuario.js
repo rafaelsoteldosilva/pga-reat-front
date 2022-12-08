@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Select from "react-select";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getPerfiles } from "../slices/perfilesSlice";
 
 const DialogNameContainer = styled.div`
@@ -15,7 +15,6 @@ const usuarioName = "usuarioName";
 const usuarioRut = "usuarioRut";
 
 export default function EditarUsuario({ usuario, dialogName, show, setShow }) {
-   const dispatch = useDispatch();
    const perfiles = useSelector(getPerfiles);
    const defaultValues = {
       usuarioName: "",
@@ -58,7 +57,7 @@ export default function EditarUsuario({ usuario, dialogName, show, setShow }) {
       let initialOptions = [];
       if (isNotEmpty(usuario)) {
          if (usuario.attributes.perfil.data.length > 0) {
-            usuario.attributes.perfil.data.map((perfil) => {
+            usuario.attributes.perfil.data.forEach((perfil) => {
                let otherObject = {};
                let valueObject = {};
 
@@ -74,7 +73,7 @@ export default function EditarUsuario({ usuario, dialogName, show, setShow }) {
       }
       setInitialSelectOptions(initialOptions);
       setProfileSelectedOptions(initialOptions);
-      perfiles.data.map((perfil, index) => {
+      perfiles.data.forEach((perfil) => {
          let newValueObject = {};
          newValueObject["nombre"] = perfil.attributes.nombre;
          newValueObject["id"] = perfil.id;
@@ -142,11 +141,11 @@ export default function EditarUsuario({ usuario, dialogName, show, setShow }) {
       }
    }
 
-   const ShowOptions = () => {
-      console.log("initialSelectOptions: ", initialSelectOptions);
-      console.log("profileOptions: ", profileOptions);
-      return <div></div>;
-   };
+   // const ShowOptions = () => {
+   //    console.log("initialSelectOptions: ", initialSelectOptions);
+   //    console.log("profileOptions: ", profileOptions);
+   //    return <div></div>;
+   // };
 
    return (
       <div>

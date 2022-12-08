@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Select from "react-select";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getEmpresas } from "../slices/empresasSlice";
 import { getUsuarios } from "../slices/usuariosSlice";
 
@@ -16,7 +16,6 @@ const perfilNombre = "perfilNombre";
 const perfilCargo = "perfilCargo";
 
 export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
-   const dispatch = useDispatch();
    const empresas = useSelector(getEmpresas);
    const usuarios = useSelector(getUsuarios);
    const defaultValues = {
@@ -87,7 +86,7 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
             setEmpresaSelectedOption(newObject);
          }
       }
-      empresas.data.map((empresa, index) => {
+      empresas.data.forEach((empresa) => {
          let objectIsIncluded = false;
          if (Object.keys(valueObject) !== 0) {
             if (empresa.id === valueObject.id) {
@@ -121,24 +120,12 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
                value: valueObject,
                label: valueObject.nombre,
             };
-            // console.log(
-            //    "usuario is not empty, adding it :: ",
-            //    valueObject.nombre
-            // );
             initialObject = newObject;
-            // usuariosArray.push(newObject);
-            // setUsuarioOptions((current) => [...current, newObject]);
          }
       }
-      usuarios.data.map((usuario, index) => {
+      usuarios.data.forEach((usuario) => {
          let objectIsIncluded = false;
 
-         // if (Object.keys(valueObject) !== 0) {
-         //    if (usuario.id === valueObject.id) {
-         //       objectIsIncluded = true;
-         //       valueObject = {};
-         //    }
-         // }
          if (!objectIsIncluded) {
             let newValueObject = {};
             newValueObject["nombre"] = usuario.attributes.nombre;
@@ -151,7 +138,7 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
          }
       });
       setUsuarioSelectedOption(initialObject);
-      setUsuarioOptions((current) => [...usuariosArray]);
+      setUsuarioOptions([...usuariosArray]);
    }
 
    function handleEmpresaSelectChange(selectedOption) {
@@ -213,14 +200,14 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
       }
    }
 
-   const ShowOptions = () => {
-      console.log(
-         "ShowOptions:: usuarioSelectedOption: ",
-         usuarioSelectedOption
-      );
-      console.log("ShowOptions:: usuarioOptions: ", usuarioOptions);
-      return <div></div>;
-   };
+   // const ShowOptions = () => {
+   //    console.log(
+   //       "ShowOptions:: usuarioSelectedOption: ",
+   //       usuarioSelectedOption
+   //    );
+   //    console.log("ShowOptions:: usuarioOptions: ", usuarioOptions);
+   //    return <div></div>;
+   // };
 
    return (
       <div>

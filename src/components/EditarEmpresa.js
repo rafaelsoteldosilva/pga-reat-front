@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Select from "react-select";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getPerfiles } from "../slices/perfilesSlice";
 
 const DialogContainer = styled.div`
@@ -20,7 +20,6 @@ const empresaNombre = "empresaNombre";
 const empresaRut = "empresaRut";
 
 export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
-   const dispatch = useDispatch();
    const perfiles = useSelector(getPerfiles);
    const defaultValues = {
       empresaNombre: "",
@@ -74,7 +73,7 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
             setProfileSelectedOption(newObject);
          }
       }
-      perfiles.data.map((perfil, index) => {
+      perfiles.data.forEach((perfil, index) => {
          console.log("agregando items to select");
          let objectIsIncluded = false;
          if (Object.keys(valueObject) !== 0) {
@@ -150,11 +149,11 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
       }
    }
 
-   const ShowOptions = () => {
-      console.log("profileSelectedOption: ", profileSelectedOption);
-      console.log("profileOptions: ", profileOptions);
-      return <div></div>;
-   };
+   // const ShowOptions = () => {
+   //    console.log("profileSelectedOption: ", profileSelectedOption);
+   //    console.log("profileOptions: ", profileOptions);
+   //    return <div></div>;
+   // };
 
    return (
       <DialogContainer>
@@ -178,7 +177,6 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
             <label style={{ marginTop: "10px" }}>
                Rut:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                <input
-                  // format="##.###.###-#"
                   type="text"
                   name={empresaRut}
                   value={formValues.empresaRut}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ShowAProfile from "../components/MostrarPerfilEnLista";
+import MostrarPerfilEnLista from "../components/MostrarPerfilEnLista";
 import { useSelector } from "react-redux";
 import { getPerfiles, getPerfilesStatus } from "../slices/perfilesSlice";
 import { Button } from "../globalData/globalStyles";
@@ -37,7 +37,11 @@ export default function Profiles() {
                Nuevo Perfil
             </Button>
             {perfiles.data.map((perfil, index) => (
-               <ShowAProfile key={index} perfil={perfil} index={index} />
+               <MostrarPerfilEnLista
+                  key={index}
+                  perfil={perfil}
+                  index={index}
+               />
             ))}
             <GlobalModal show={show} handleClose={hideModal}>
                <EditarPerfil

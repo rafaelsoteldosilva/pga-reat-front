@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ShowAUser from "../components/MostrarUsuarioEnLista";
+import ShowMostrarUsuarioEnLista from "../components/MostrarUsuarioEnLista";
 import { useSelector } from "react-redux";
 import { getUsuarios, getUsuariosStatus } from "../slices/usuariosSlice";
 import { Button } from "../globalData/globalStyles";
@@ -37,7 +37,11 @@ export default function Usuarios() {
                Nuevo Usuario
             </Button>
             {usuarios.data.map((usuario, index) => (
-               <ShowAUser key={index} usuario={usuario} index={index} />
+               <ShowMostrarUsuarioEnLista
+                  key={index}
+                  usuario={usuario}
+                  index={index}
+               />
             ))}
             <GlobalModal show={show} handleClose={hideModal}>
                <EditarUsuario
