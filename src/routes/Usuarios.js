@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ShowAUser from "../components/ShowAUser";
-import { useDispatch, useSelector } from "react-redux";
+import ShowAUser from "../components/MostrarUsuarioEnLista";
+import { useSelector } from "react-redux";
 import { getUsuarios, getUsuariosStatus } from "../slices/usuariosSlice";
 import { Button } from "../globalData/globalStyles";
 
@@ -17,14 +17,10 @@ const UsuariosContainer = styled.div`
 `;
 
 export default function Usuarios() {
-   const dispatch = useDispatch();
    const usuarios = useSelector(getUsuarios);
    const usuariosStatus = useSelector(getUsuariosStatus);
    const [show, setShow] = useState(false);
 
-   function handleClickNueva() {
-      alert("Nuevo usuario");
-   }
    function showModal() {
       setShow(true);
    }

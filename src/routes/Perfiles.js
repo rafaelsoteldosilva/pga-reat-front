@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ShowAProfile from "../components/ShowAProfile";
-import { useDispatch, useSelector } from "react-redux";
+import ShowAProfile from "../components/MostrarPerfilEnLista";
+import { useSelector } from "react-redux";
 import { getPerfiles, getPerfilesStatus } from "../slices/perfilesSlice";
 import { Button } from "../globalData/globalStyles";
 
@@ -17,14 +17,10 @@ const ProfileContainer = styled.div`
 `;
 
 export default function Profiles() {
-   const dispatch = useDispatch();
    const perfiles = useSelector(getPerfiles);
    const perfilesStatus = useSelector(getPerfilesStatus);
    const [show, setShow] = useState(false);
 
-   function handleClickNueva() {
-      alert("Nuevo perfil");
-   }
    function showModal() {
       setShow(true);
    }

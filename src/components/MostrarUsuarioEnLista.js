@@ -1,16 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 import styled from "styled-components";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
-import EditarEmpresa from "./EditarEmpresa.js";
+import EditarUsuario from "./EditarUsuario.js";
+import { useSelector } from "react-redux";
+import { getEmpresas } from "../slices/empresasSlice";
 
-const EmpresaContainer = styled.div`
+const UsuarioContainer = styled.div`
    width: 95%;
    display: flex;
    flex-direction: row;
@@ -65,9 +65,9 @@ const PerfilContainer = styled.div`
    border: 1px solid black;
 `;
 
-export default function ShowAnEnterprise({ empresa, index }) {
-   const delRef = useRef();
-   const editRef = useRef();
+export default function ShowMostrarUsuarioEnLista({ usuario, index }) {
+   const empresas = useSelector(getEmpresas);
+
    const [show, setShow] = useState(false);
    function showModal() {
       setShow(true);
@@ -79,53 +79,58 @@ export default function ShowAnEnterprise({ empresa, index }) {
    function handleEditClick() {
       showModal();
    }
-   function handleDeleteClick(empresa, index) {
-      console.log(`deleting empresa ${empresa.attributes.nombre}`, index);
+   function handleDeleteUsuarioClick(usuario, index) {
+      console.log(`deleting user ${usuario.attributes.nombre}`, index);
+   }
+
+   function searchEnterpriseInEmpresas(perfilId) {
+      let MyEmpresa = null;
+      MyEmpresa = empresas.data.find((empresa) => {
+         return empresa.attributes.perfil.data !== null
+            ? empresa.attributes.perfil.data.id === perfilId
+            : false;
+      });
+      return typeof MyEmpresa !== "undefined" && MyEmpresa !== null
+         ? MyEmpresa.attributes.nombre
+         : "";
    }
    return (
       <React.Fragment>
-         <EmpresaContainer>
-            <NombreContainer>{empresa.attributes.nombre}</NombreContainer>
-            <RutContainer>{empresa.attributes.rut}</RutContainer>
-            <EditContainer
-               ref={editRef}
-               onClick={() => handleEditClick(empresa)}
-            >
+         <UsuarioContainer>
+            <NombreContainer>{usuario.attributes.nombre}</NombreContainer>
+            <RutContainer>{usuario.attributes.rut}</RutContainer>
+            <EditContainer onClick={(usuario) => handleEditClick(usuario)}>
                <FontAwesomeIcon
                   style={{ margin: "10px" }}
                   icon={faPenToSquare}
                />
             </EditContainer>
-            <Tippy content="Editar una empresa" reference={editRef} />
             <DeleteContainer
-               ref={delRef}
-               onClick={() => handleDeleteClick(empresa, index)}
+               onClick={() => handleDeleteUsuarioClick(usuario, index)}
             >
                <FontAwesomeIcon
                   style={{ margin: "10px", marginLeft: "20px" }}
                   icon={faTrash}
                />
             </DeleteContainer>
-            <Tippy content="Eliminar una empresa" reference={delRef} />
             <GlobalModal show={show} handleClose={hideModal}>
-               <EditarEmpresa
-                  empresa={empresa}
-                  dialogName="Editar Empresa"
+               <EditarUsuario
+                  usuario={usuario}
+                  dialogName="Editar Usuario"
                   show={show}
                   setShow={setShow}
                />
             </GlobalModal>
-         </EmpresaContainer>
-         {empresa.attributes.perfil.data && (
-            <React.Fragment>
-               <PerfilContainer>
-                  <p>Perfil: </p>
+         </UsuarioContainer>
+         {usuario.attributes.perfil.data.length > 0 &&
+            usuario.attributes.perfil.data.map((perfil, index) => (
+               <PerfilContainer key={index}>
+                  <p>{perfil.attributes.nombre}</p>
                   <p style={{ marginLeft: "10px" }}>
-                     {empresa.attributes.perfil.data.attributes.nombre}
+                     {searchEnterpriseInEmpresas(perfil.id)}
                   </p>
                </PerfilContainer>
-            </React.Fragment>
-         )}
+            ))}
       </React.Fragment>
    );
 }

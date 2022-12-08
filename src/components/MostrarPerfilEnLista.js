@@ -3,17 +3,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-   faPenToSquare,
-   faTrash,
-   faSquarePlus,
-   faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarPerfil from "./EditarPerfil.js";
-import { useDispatch, useSelector } from "react-redux";
-import { getPerfiles } from "../slices/perfilesSlice";
 
 const PerfilContainer = styled.div`
    width: 95%;
@@ -83,8 +76,6 @@ const UsuarioContainer = styled.div`
 `;
 
 export default function ShowAProfile({ perfil, index }) {
-   const dispatch = useDispatch();
-   const perfiles = useSelector(getPerfiles);
    const [show, setShow] = useState(false);
    function showModal() {
       setShow(true);
@@ -99,12 +90,7 @@ export default function ShowAProfile({ perfil, index }) {
    function handleDeleteProfileClick(perfil) {
       console.log(`deleting perfil ${perfil.attributes.nombre}`);
    }
-   function handleDeleteUsuarioClick(perfil, usuario) {
-      console.log(usuario);
-   }
-   function handleDeleteEmpresaClick(perfil, empresa) {
-      console.log(empresa);
-   }
+
    return (
       <React.Fragment>
          <PerfilContainer>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ShowAnEnterprise from "../components/ShowAnEnterprise";
-import { useDispatch, useSelector } from "react-redux";
+import ShowAnEnterprise from "../components/MostrarEmpresaEnLista";
+import { useSelector } from "react-redux";
 import { getEmpresas, getEmpresasStatus } from "../slices/empresasSlice";
 import { Button } from "../globalData/globalStyles";
 
@@ -17,14 +17,10 @@ const EmpresasContainer = styled.div`
 `;
 
 export default function Empresas() {
-   const dispatch = useDispatch();
    const empresas = useSelector(getEmpresas);
    const empresasStatus = useSelector(getEmpresasStatus);
    const [show, setShow] = useState(false);
 
-   function handleClickNueva() {
-      alert("Nueva empresa");
-   }
    function showModal() {
       setShow(true);
    }
@@ -33,10 +29,10 @@ export default function Empresas() {
       setShow(false);
    }
 
-   const ShowEmpresas = () => {
-      console.log("empresas: ", empresas);
-      return <div></div>;
-   };
+   // const ShowEmpresas = () => {
+   //    console.log("empresas: ", empresas);
+   //    return <div></div>;
+   // };
    if (empresasStatus !== "succeeded") return <div>loading data...</div>;
    else
       return (
