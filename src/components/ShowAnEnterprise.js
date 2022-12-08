@@ -5,17 +5,10 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-   faPenToSquare,
-   faTrash,
-   faPlus,
-   faMinus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarEmpresa from "./EditarEmpresa.js";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsuarios } from "../slices/usuariosSlice";
 
 const EmpresaContainer = styled.div`
    width: 95%;
@@ -34,18 +27,6 @@ const NombreContainer = styled.div`
 const RutContainer = styled.div`
    width: 300px;
    margin: 0.5em;
-`;
-
-const AddContainer = styled.div`
-    width: 50px,
-    margin: 0.5em,
-    backgroundColor: green,
-    &:hover {
-      filter: brightness(70%);
-    }
-    &:active {
-      transform: translateY(4px);
-    }
 `;
 
 const EditContainer = styled.div`
@@ -85,9 +66,6 @@ const PerfilContainer = styled.div`
 `;
 
 export default function ShowAnEnterprise({ empresa, index }) {
-   const dispatch = useDispatch();
-   const usuarios = useSelector(getUsuarios);
-   const addRef = useRef();
    const delRef = useRef();
    const editRef = useRef();
    const [show, setShow] = useState(false);
@@ -101,9 +79,6 @@ export default function ShowAnEnterprise({ empresa, index }) {
    function handleEditClick() {
       showModal();
    }
-   function handleAddClick(empresa) {
-      console.log("add to empresa:: ", empresa);
-   }
    function handleDeleteClick(empresa, index) {
       console.log(`deleting empresa ${empresa.attributes.nombre}`, index);
    }
@@ -112,17 +87,21 @@ export default function ShowAnEnterprise({ empresa, index }) {
          <EmpresaContainer>
             <NombreContainer>{empresa.attributes.nombre}</NombreContainer>
             <RutContainer>{empresa.attributes.rut}</RutContainer>
-            <EditContainer onClick={() => handleEditClick(empresa)}>
+            <EditContainer
+               ref={editRef}
+               onClick={() => handleEditClick(empresa)}
+            >
                <FontAwesomeIcon
-                  ref={editRef}
                   style={{ margin: "10px" }}
                   icon={faPenToSquare}
                />
             </EditContainer>
             <Tippy content="Editar una empresa" reference={editRef} />
-            <DeleteContainer onClick={() => handleDeleteClick(empresa, index)}>
+            <DeleteContainer
+               ref={delRef}
+               onClick={() => handleDeleteClick(empresa, index)}
+            >
                <FontAwesomeIcon
-                  ref={delRef}
                   style={{ margin: "10px", marginLeft: "20px" }}
                   icon={faTrash}
                />

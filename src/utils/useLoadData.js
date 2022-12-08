@@ -1,20 +1,13 @@
 import { useDispatch } from "react-redux";
-import store from "../app/store";
 
 import { fetchEmpresas, resetEmpresas } from "../slices/empresasSlice";
 import { fetchPerfiles, resetPerfiles } from "../slices/perfilesSlice";
 import { fetchUsuarios, resetUsuarios } from "../slices/usuariosSlice";
 
-export function useCheckRedux() {
+export function useLoadData(performLoadData) {
    const dispatch = useDispatch();
 
-   if (
-      !(
-         store.getState().empresas.empresasStatus === "succeeded" &&
-         store.getState().perfiles.perfilesStatus === "succeeded" &&
-         store.getState().usuarios.usuariosStatus === "succeeded"
-      )
-   ) {
+   if (performLoadData) {
       dispatch(resetEmpresas());
       dispatch(fetchEmpresas());
 
@@ -24,5 +17,6 @@ export function useCheckRedux() {
       dispatch(resetUsuarios());
       dispatch(fetchUsuarios());
    }
+
    return;
 }

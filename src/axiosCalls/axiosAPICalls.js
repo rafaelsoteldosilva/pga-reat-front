@@ -7,12 +7,28 @@ import axios from "axios";
 //    // },
 // });
 
+const apiCall = axios.create({
+   baseURL: "http://localhost:1337/api/",
+});
+
+// apiCall.interceptors.request.use(
+//    async (config) => {
+//       const jsonValue = window.localStorage.getItem("@token_Key");
+//       let obj = JSON.parse(jsonValue);
+//       if (obj) {
+//          config.headers.Authorization = `Bearer ${obj}`;
+//       }
+//       return config;
+//    },
+//    (err) => {
+//       return Promise.reject(err);
+//    }
+// );
+
 export async function loadEmpresasFromApi() {
-   let data = {};
+   console.log("in loadEmpresasFromApi");
    try {
-      const response = await axios.get(
-         "http://localhost:1337/api/empresas?populate=*"
-      );
+      const response = await apiCall.get("/empresas?populate=*");
       return response.data;
    } catch (error) {
       console.log("axios error, loadPerfilesFromApi:: ", error);
@@ -22,11 +38,8 @@ export async function loadEmpresasFromApi() {
 }
 
 export async function loadPerfilesFromApi() {
-   let data = {};
    try {
-      const response = await axios.get(
-         `http://localhost:1337/api/perfiles?populate=*`
-      );
+      const response = await apiCall.get(`/perfiles?populate=*`);
       return response.data;
    } catch (error) {
       console.log("axios error, loadPerfilesFromApi:: ", error);
@@ -36,11 +49,8 @@ export async function loadPerfilesFromApi() {
 }
 
 export async function loadUsuariosFromApi() {
-   let data = {};
    try {
-      const response = await axios.get(
-         `http://localhost:1337/api/usuarios?populate=*`
-      );
+      const response = await apiCall.get(`/usuarios?populate=*`);
       return response.data;
    } catch (error) {
       console.log("axios error, loadUsuariosFromApi:: ", error);
