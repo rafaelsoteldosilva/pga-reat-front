@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loadPerfilesFromApi } from "../axiosCalls/axiosAPICalls";
+import { getPerfilesFromApi } from "../axiosCalls/axiosAPICalls";
 import _ from "lodash";
 
 export const fetchPerfiles = createAsyncThunk(
    "perfil/fetchPerfiles",
    async () => {
       var perfilPromise = new Promise(function (resolve, reject) {
-         loadPerfilesFromApi()
+         getPerfilesFromApi()
             .then((dataP) => {
                return resolve(dataP);
             })

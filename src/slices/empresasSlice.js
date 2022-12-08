@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loadEmpresasFromApi } from "../axiosCalls/axiosAPICalls";
+import { getEmpresasFromApi } from "../axiosCalls/axiosAPICalls";
 import _ from "lodash";
 
 export const fetchEmpresas = createAsyncThunk(
    "empresas/fetchEmpresas",
    async () => {
       var empresaPromise = new Promise(function (resolve, reject) {
-         loadEmpresasFromApi()
+         getEmpresasFromApi()
             .then((dataE) => {
                return resolve(dataE);
             })

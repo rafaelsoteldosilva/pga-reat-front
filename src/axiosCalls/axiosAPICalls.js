@@ -25,35 +25,34 @@ const apiCall = axios.create({
 //    }
 // );
 
-export async function loadEmpresasFromApi() {
-   console.log("in loadEmpresasFromApi");
+export async function getEmpresasFromApi() {
    try {
       const response = await apiCall.get("/empresas?populate=*");
       return response.data;
    } catch (error) {
-      console.log("axios error, loadPerfilesFromApi:: ", error);
+      console.log("axios error, getPerfilesFromApi:: ", error);
 
       return error.message;
    }
 }
 
-export async function loadPerfilesFromApi() {
+export async function getPerfilesFromApi() {
    try {
       const response = await apiCall.get(`/perfiles?populate=*`);
       return response.data;
    } catch (error) {
-      console.log("axios error, loadPerfilesFromApi:: ", error);
+      console.log("axios error, getPerfilesFromApi:: ", error);
 
       return error.message;
    }
 }
 
-export async function loadUsuariosFromApi() {
+export async function getUsuariosFromApi() {
    try {
       const response = await apiCall.get(`/usuarios?populate=*`);
       return response.data;
    } catch (error) {
-      console.log("axios error, loadUsuariosFromApi:: ", error);
+      console.log("axios error, getUsuariosFromApi:: ", error);
 
       return error.message;
    }

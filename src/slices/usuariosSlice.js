@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loadUsuariosFromApi } from "../axiosCalls/axiosAPICalls";
+import { getUsuariosFromApi } from "../axiosCalls/axiosAPICalls";
 import _ from "lodash";
 
 export const fetchUsuarios = createAsyncThunk(
    "usuario/fetchUsuarios",
    async () => {
       var usuarioPromise = new Promise(function (resolve, reject) {
-         loadUsuariosFromApi()
+         getUsuariosFromApi()
             .then((dataU) => {
                return resolve(dataU);
             })
