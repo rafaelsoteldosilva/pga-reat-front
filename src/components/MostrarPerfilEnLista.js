@@ -7,6 +7,7 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarPerfil from "./EditarPerfil.js";
+import { deletePerfilWithApi } from "../axiosCalls/axiosAPICalls.js";
 
 const PerfilContainer = styled.div`
    width: 95%;
@@ -88,7 +89,7 @@ export default function ShowAProfile({ perfil, index }) {
       showModal();
    }
    function handleDeleteProfileClick(perfil) {
-      console.log(`deleting perfil ${perfil.attributes.nombre}`);
+      deletePerfilWithApi(perfil.id);
    }
 
    return (

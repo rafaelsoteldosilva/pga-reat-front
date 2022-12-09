@@ -148,6 +148,7 @@ export default function EditarUsuario({ usuario, dialogName, show, setShow }) {
             body = {
                nombre: formValues.usuarioName,
                rut: formValues.usuarioRut,
+               perfil: [],
             };
          }
          console.log("body:: ", body);

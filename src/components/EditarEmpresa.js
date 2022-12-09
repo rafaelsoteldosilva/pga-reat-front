@@ -158,9 +158,10 @@ export default function EditarEmpresa({ empresa, dialogName, show, setShow }) {
             body = {
                nombre: formValues.empresaNombre,
                rut: formValues.empresaRut,
+               perfil: [],
             };
          }
-
+         console.log(body);
          if (isCreate()) {
             postEmpresaToApi(body);
          } else {

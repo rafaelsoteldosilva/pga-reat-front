@@ -210,12 +210,14 @@ export default function EditarPerfil({ perfil, dialogName, show, setShow }) {
          body = {
             nombre: formValues.perfilNombre,
             cargo: formValues.perfilCargo,
+            empresa: [],
+            usuario: [],
          };
          if (empresaRelation > -1) {
-            body["empresa"] = empresaRelation;
+            body.empresa = empresaRelation;
          }
          if (usuarioRelation > -1) {
-            body["usuario"] = usuarioRelation;
+            body.usuario = usuarioRelation;
          }
 
          console.log("body:: ", body);

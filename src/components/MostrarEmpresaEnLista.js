@@ -9,6 +9,7 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalModal } from "../globalData/globalModal.js";
 import EditarEmpresa from "./EditarEmpresa.js";
+import { deleteEmpresaWithApi } from "../axiosCalls/axiosAPICalls.js";
 
 const EmpresaContainer = styled.div`
    width: 95%;
@@ -80,7 +81,7 @@ export default function MostrarEmpresaEnLista({ empresa, index }) {
       showModal();
    }
    function handleDeleteClick(empresa, index) {
-      console.log(`deleting empresa ${empresa.attributes.nombre}`, index);
+      deleteEmpresaWithApi(empresa.id);
    }
    return (
       <React.Fragment>

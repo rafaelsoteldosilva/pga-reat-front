@@ -9,6 +9,7 @@ import { GlobalModal } from "../globalData/globalModal.js";
 import EditarUsuario from "./EditarUsuario.js";
 import { useSelector } from "react-redux";
 import { getEmpresas } from "../slices/empresasSlice";
+import { deleteUsuarioWithApi } from "../axiosCalls/axiosAPICalls.js";
 
 const UsuarioContainer = styled.div`
    width: 95%;
@@ -81,6 +82,7 @@ export default function ShowMostrarUsuarioEnLista({ usuario, index }) {
    }
    function handleDeleteUsuarioClick(usuario, index) {
       console.log(`deleting user ${usuario.attributes.nombre}`, index);
+      deleteUsuarioWithApi(usuario.id);
    }
 
    function searchEnterpriseInEmpresas(perfilId) {
