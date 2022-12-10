@@ -81,7 +81,6 @@ export default function ShowMostrarUsuarioEnLista({ usuario, index }) {
       showModal();
    }
    function handleDeleteUsuarioClick(usuario, index) {
-      console.log(`deleting user ${usuario.attributes.nombre}`, index);
       deleteUsuarioWithApi(usuario.id);
    }
 
@@ -127,7 +126,7 @@ export default function ShowMostrarUsuarioEnLista({ usuario, index }) {
          {usuario.attributes.perfil.data.length > 0 &&
             usuario.attributes.perfil.data.map((perfil, index) => (
                <PerfilContainer key={index}>
-                  <p>{perfil.attributes.nombre}</p>
+                  <p>Perfil: {perfil.attributes.nombre}</p>
                   <p style={{ marginLeft: "10px" }}>
                      {searchEnterpriseInEmpresas(perfil.id)}
                   </p>

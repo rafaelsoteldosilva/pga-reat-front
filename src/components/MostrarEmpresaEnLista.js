@@ -120,9 +120,8 @@ export default function MostrarEmpresaEnLista({ empresa, index }) {
          {empresa.attributes.perfil.data && (
             <React.Fragment>
                <PerfilContainer>
-                  <p>Perfil: </p>
                   <p style={{ marginLeft: "10px" }}>
-                     {empresa.attributes.perfil.data.attributes.nombre}
+                     Perfil: {empresa.attributes.perfil.data.attributes.nombre}
                   </p>
                </PerfilContainer>
             </React.Fragment>
